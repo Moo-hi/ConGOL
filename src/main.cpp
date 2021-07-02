@@ -59,11 +59,13 @@ int main()
     int subdivs = 60;
     //                                  //
     //  Lower equals faster             //
-    int tickrate = 35;
+    int tickrate = 25;
     //                                  //
     // // // // // // // // // // // // //
 
+    fan::set_console_visibility(false);
     fan::window window(Utils::RoundToLowerPerfectSquare(fan::get_resolution()) - 100, "Conway's Game of Life");
+    
     window.set_max_fps(165);
     window.set_vsync(false);
 
@@ -87,27 +89,25 @@ int main()
     int count = 0;
     
     /* Key bindings */ 
-    
-    // Mouse
-    window.add_key_callback(fan::mouse_left, [&]() { paint_live = true; });
-    window.add_key_release_callback(fan::mouse_left, [&]() { paint_live = false; });
+    // Mousefan::key_state::presspaint_live = false;
+    window.add_key_callback(fan::mouse_left, fan::key_state::press, [&]() { paint_live = true; });
+    window.add_key_callback(fan::mouse_left, fan::key_state::release, [&]() { paint_live = false; });
 
-    window.add_key_callback(fan::mouse_right, [&]() { paint_dead = true; });
-    window.add_key_release_callback(fan::mouse_right, [&]() { paint_dead = false; });
-    //
+    window.add_key_callback(fan::mouse_right, fan::key_state::press, [&]() { paint_dead = true; });
+    window.add_key_callback(fan::mouse_right, fan::key_state::release, [&]() { paint_dead = false; });
 
     // ESC: Close game
-    window.add_key_callback(fan::key_escape, [&]() { window.close(); });
+    window.add_key_callback(fan::key_escape, fan::key_state::press, [&]() { window.close(); });
 
     // F: Toggle FPS
-    window.add_key_callback(fan::key_f, [&]() { show_fps = !show_fps; window.set_name("Conway's Game of Life"); });
+    window.add_key_callback(fan::key_f, fan::key_state::press, [&]() { show_fps = !show_fps; window.set_name("Conway's Game of Life"); });
 
     // Space: Toggle simulation
-    window.add_key_callback(fan::key_space, [&]() { grid.toggle_simulation(); });
+    window.add_key_callback(fan::key_space, fan::key_state::press, [&]() { grid.toggle_simulation(); });
 
     // Shift+T+ScrollUp: Evolve or forward to next generation depending on if the generation is already recorded or not. 
     // Shift+T+ScrollDown: Devolve to earlier generation if it exists
-    window.add_scroll_callback([&](uint16_t key) {
+    window.set_keys_callback([&](uint16_t key, fan::key_state state) {
         if (window.key_press(fan::key_t) && key == fan::mouse_scroll_up) {
             grid.evolve();
         }
@@ -117,10 +117,10 @@ int main()
         });
 
     // M: Enable measuring tool (incomplete & unimplemented)
-    window.add_key_callback(fan::key_m, [&] { enable_measuretool = !enable_measuretool; });
+    window.add_key_callback(fan::key_m, fan::key_state::press, [&] { enable_measuretool = !enable_measuretool; });
 
     // Experimental text fader (incomplete & unimplemented)
-    window.add_key_callback(fan::key_enter, [&] {
+    window.add_key_callback(fan::key_enter, fan::key_state::press, [&] {
         //std::thread testi2([&r, &g, &b, &a]() { ThreadedColorModifiers::FlipFade(NULL, NULL, &b, &a, true); });
         //testi2.detach();
         });
