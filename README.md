@@ -17,6 +17,7 @@ Find more information on the game at [wikipedia.org](https://en.wikipedia.org/wi
 - RMB : Erase cells
 - Space : Start/stop simulation  
 - Shift+T+ScrollUp/Down : Evolve/de-evolve
+- F : Show FPS
 
 ## Known issues:
 - Crash if evolution extends outside the window (overlap handling is unimplemented in 0.9)
