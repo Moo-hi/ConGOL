@@ -2,6 +2,8 @@
 ## Overview
 C++ adaptation of the famous Conway's Game of Life, using C++20 standard & OpenGL/Vulkan for graphics via a library made by  @reinterpret-pointer-cast.
 
+![congol](https://user-images.githubusercontent.com/57489963/124203736-0e2b8b00-dae6-11eb-8976-2f1e581ee44e.gif)
+
 ### Rules
 1. Any live cell with fewer than two live neighbours dies, as if by underpopulation.
 2. Any live cell with two or three live neighbours lives on to the next generation.
