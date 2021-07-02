@@ -84,6 +84,10 @@ namespace fan {
 
 	#ifdef fan_platform_windows
 
+	static void set_console_visibility(bool visible) {
+		ShowWindow(GetConsoleWindow(), visible ? SW_SHOW : SW_HIDE);
+	}
+
 	using window_t = HWND;
 
 	#define FAN_API static
@@ -134,7 +138,6 @@ namespace fan {
 
 	#endif
 
-
 	fan::vec2i get_resolution();
 
 	template <typename T>
@@ -153,6 +156,11 @@ namespace fan {
 
 	fan::window* get_window_by_id(fan::window_t wid);
 	void set_window_by_id(fan::window_t wid, fan::window* window);
+
+	enum class key_state {
+		press,
+		release
+	};
 
 	class window {
 	public:
@@ -197,18 +205,18 @@ namespace fan {
 		};
 
 		// required type alias for function return types
-		using keys_callback_t = std::function<void(uint16_t key)>;
+		using keys_callback_t = std::function<void(uint16_t, key_state)>;
 		using key_callback_t = struct{
 
 			uint16_t key;
+			key_state state;
+
 			std::function<void()> function;
-			bool release;
 
 		};
 
 		using text_callback_t = std::function<void(fan::fstring::value_type key)>;
 
-		using mouse_move_callback_t = std::function<void(fan::window*)>;
 		using mouse_move_position_callback_t = std::function<void(const fan::vec2i& position)>;
 		using scroll_callback_t = std::function<void(uint16_t key)>;
 
@@ -356,13 +364,9 @@ namespace fan {
 		void set_keys_callback(const keys_callback_t& function);
 		void remove_keys_callback();
 
-		std::deque<key_callback_t>::iterator add_key_callback(uint16_t key, const std::function<void()>& function);
-		void edit_key_callback(std::deque<key_callback_t>::iterator it, uint16_t key);
+		std::deque<key_callback_t>::iterator add_key_callback(uint16_t key, key_state state, const std::function<void()>& function);
+		void edit_key_callback(std::deque<key_callback_t>::iterator it, uint16_t key, key_state state);
 		void remove_key_callback(std::deque<key_callback_t>::const_iterator it);
-
-		std::deque<key_callback_t>::iterator add_key_release_callback(uint16_t key, const std::function<void()>& function);
-		void edit_key_release_callback(std::deque<key_callback_t>::iterator it, uint16_t key);
-		void remove_key_release_callback(std::deque<key_callback_t>::const_iterator it);
 
 		void set_text_callback(const text_callback_t& function);
 		void remove_text_callback();
@@ -372,12 +376,6 @@ namespace fan {
 
 		std::deque<mouse_move_position_callback_t>::iterator add_mouse_move_callback(const mouse_move_position_callback_t& function);
 		void remove_mouse_move_callback(std::deque<mouse_move_position_callback_t>::const_iterator it);
-
-		std::deque<mouse_move_callback_t>::iterator add_mouse_move_callback(const mouse_move_callback_t& function);
-		void remove_mouse_move_callback(std::deque<mouse_move_callback_t>::const_iterator it);
-
-		std::deque<scroll_callback_t>::iterator add_scroll_callback(const scroll_callback_t& function);
-		void remove_scroll_callback(std::deque<scroll_callback_t>::const_iterator it);
 
 		std::deque<std::function<void()>>::iterator add_resize_callback(const std::function<void()>& function);
 		void remove_resize_callback(std::deque<std::function<void()>>::const_iterator it);
@@ -413,6 +411,8 @@ namespace fan {
 
 #if fan_renderer == fan_renderer_vulkan
 		fan::vulkan* m_vulkan = nullptr;
+
+		
 #endif
 
 	private:
@@ -471,8 +471,6 @@ namespace fan {
 
 		void initialize_window(const std::string& name, const fan::vec2i& window_size, uint64_t flags);
 
-		void handle_resize_callback(const fan::window_t& window, const fan::vec2i& size);
-		void handle_move_callback(const fan::window_t& window);
 		// crossplatform variables
 
 		window_t m_window;
@@ -481,8 +479,6 @@ namespace fan {
 		std::deque<key_callback_t> m_key_callback;
 		text_callback_t m_text_callback;
 		std::deque<mouse_move_position_callback_t> m_mouse_move_position_callback;
-		std::deque<mouse_move_callback_t> m_mouse_move_callback;
-		std::deque<scroll_callback_t> m_scroll_callback;
 		std::deque<std::function<void()>> m_move_callback;
 		std::deque<std::function<void()>> m_resize_callback;
 		std::deque<std::function<void()>> m_close_callback;
@@ -693,8 +689,11 @@ namespace fan {
 
 inline fan::mat4 projection(1);
 
+#include <fan/graphics/vulkan/vk_core.hpp>
 
 inline fan::mat4 view(1); 
+
+constexpr auto gpu_stack(0xffffff);
 
 struct UniformBufferObject {
 	alignas(16) fan::mat4 view;
@@ -736,12 +735,15 @@ namespace fan {
 			createDescriptorSetLayout();
 			createFramebuffers();
 			createCommandPool();
+			
 			//createIndexBuffer();
 			createUniformBuffers();
 			createDescriptorPool();
 			createDescriptorSets();
-			createCommandBuffers();
+			create_command_buffers();
 			create_sync_objects();
+
+			staging_buffer = new staging_buffer_t(&device,  &physicalDevice, gpu_stack);
 
 			m_window->add_resize_callback([&] {
 				window_resized = true;
@@ -751,12 +753,14 @@ namespace fan {
 		~vulkan() {
 
 			pipelines.~pipelines();
+			staging_buffer->~glsl_location_handler();
 
 			cleanupSwapChain();
 
 			vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
+			descriptorSetLayout = nullptr;
 
-			//vkDestroyBuffer(device, indexBuffer, nullptr);
+			//vkDestroyBuffer(device, indexBuffer, nullptr); 
 			//vkFreeMemory(device, indexBufferMemory, nullptr);
 
 			for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
@@ -766,16 +770,21 @@ namespace fan {
 			}
 
 			vkDestroyCommandPool(device, commandPool, nullptr);
+			commandPool = nullptr;
 
 			vkDestroyDevice(device, nullptr);
+			device = nullptr;
 
 			if (enable_validation_layers) {
 				DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
 			}
 
 			vkDestroySurfaceKHR(instance, surface, nullptr);
+			surface = nullptr;
 			vkDestroyInstance(instance, nullptr);
+			instance = nullptr;
 
+			//delete staging_buffer;
 		}
 
 		//VkBuffer indexBuffer;
@@ -1037,7 +1046,7 @@ namespace fan {
 			create_info.enabledLayerCount = 0;
 
 			if (enable_validation_layers && !check_validation_layer_support()) {
-				throw std::runtime_error("validation layers requested, but not available!");
+				throw std::runtime_error("validation layers not available.");
 			}
 
 			VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo{};
@@ -1281,7 +1290,7 @@ namespace fan {
 			createUniformBuffers();
 			createDescriptorPool();
 			createDescriptorSets();
-			createCommandBuffers();
+			create_command_buffers();
 
 			imagesInFlight.resize(swapChainImages.size(), VK_NULL_HANDLE);
 		}
@@ -1388,6 +1397,7 @@ namespace fan {
 			VkCommandPoolCreateInfo poolInfo{};
 			poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 			poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
+			poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
 			if (vkCreateCommandPool(device, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) {
 				throw std::runtime_error("failed to create graphics command pool!");
@@ -1395,7 +1405,7 @@ namespace fan {
 		}
 
 		// command buffers
-		void createCommandBuffers() {
+		void create_command_buffers() {
 
 			commandBuffers.resize(2);
 			commandBuffers[0].resize(swapChainFramebuffers.size());
@@ -1433,6 +1443,7 @@ namespace fan {
 			renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
 			inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
 			imagesInFlight.resize(swapChainImages.size(), VK_NULL_HANDLE);
+			data_edit_semaphore.resize(MAX_FRAMES_IN_FLIGHT);
 
 			VkSemaphoreCreateInfo semaphoreInfo{};
 			semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -1451,12 +1462,11 @@ namespace fan {
 
 		}
 
-		void drawFrame() {
-
+		void draw_frame() {
 			vkWaitForFences(device, 1, &inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
 
-			uint32_t imageIndex;
-			VkResult result = vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
+			uint32_t image_index = 0;
+			VkResult result = vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &image_index);
 
 			if (result == VK_ERROR_OUT_OF_DATE_KHR) {
 				recreateSwapChain();
@@ -1466,54 +1476,50 @@ namespace fan {
 				throw std::runtime_error("failed to acquire swap chain image!");
 			}
 
-			updateUniformBuffer(imageIndex);
+			updateUniformBuffer(image_index);
 
-			if (imagesInFlight[imageIndex] != VK_NULL_HANDLE) {
-				vkWaitForFences(device, 1, &imagesInFlight[imageIndex], VK_TRUE, UINT64_MAX);
+			if (imagesInFlight[image_index] != VK_NULL_HANDLE) {
+				vkWaitForFences(device, 1, &imagesInFlight[image_index], VK_TRUE, UINT64_MAX);
 			}
-			imagesInFlight[imageIndex] = inFlightFences[currentFrame];
+			imagesInFlight[image_index] = inFlightFences[currentFrame];
 
-			VkSubmitInfo submitInfo{};
-			submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+			VkSubmitInfo submit_info{};
+			submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 
-			VkSemaphore waitSemaphores[] = { imageAvailableSemaphores[currentFrame] };
-			VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
-			submitInfo.waitSemaphoreCount = 1;
-			submitInfo.pWaitSemaphores = waitSemaphores;
-			submitInfo.pWaitDstStageMask = waitStages;
+			VkSemaphore wait_semaphores[] = { imageAvailableSemaphores[currentFrame] };
+			VkPipelineStageFlags wait_stages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+			submit_info.waitSemaphoreCount = 1;
+			submit_info.pWaitSemaphores = wait_semaphores;
+			submit_info.pWaitDstStageMask = wait_stages;
 
-			VkCommandBuffer buffers[] = { commandBuffers[0][imageIndex], commandBuffers[1][0] };
+			submit_info.commandBufferCount = 1;
+			submit_info.pCommandBuffers = &commandBuffers[0][image_index];
 
-			submitInfo.commandBufferCount = 1;
-
-			submitInfo.pCommandBuffers = buffers;
-
-			VkSemaphore signalSemaphores[] = { renderFinishedSemaphores[currentFrame] };
-			submitInfo.signalSemaphoreCount = 1;
-			submitInfo.pSignalSemaphores = signalSemaphores;
+			VkSemaphore signal_semaphores[] = { renderFinishedSemaphores[currentFrame] };
+			submit_info.signalSemaphoreCount = 1;
+			submit_info.pSignalSemaphores = signal_semaphores;
 
 			vkResetFences(device, 1, &inFlightFences[currentFrame]);
 
-			if (vkQueueSubmit(graphicsQueue, 1, &submitInfo, inFlightFences[currentFrame]) != VK_SUCCESS) {
+			if (vkQueueSubmit(graphicsQueue, 1, &submit_info, inFlightFences[currentFrame]) != VK_SUCCESS) {
 				throw std::runtime_error("failed to submit draw command buffer!");
 			}
-			VkPresentInfoKHR presentInfo{};
-			presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 
-			presentInfo.waitSemaphoreCount = 1;
-			presentInfo.pWaitSemaphores = signalSemaphores;
+			VkPresentInfoKHR present_info{};
+			present_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 
-			VkSwapchainKHR swapChains[] = { swapChain };
-			presentInfo.swapchainCount = 1;
-			presentInfo.pSwapchains = swapChains;
+			present_info.waitSemaphoreCount = 1;
+			present_info.pWaitSemaphores = signal_semaphores;
 
-			presentInfo.pImageIndices = &imageIndex;
+			VkSwapchainKHR swap_chains[] = { swapChain };
+			present_info.swapchainCount = 1;
+			present_info.pSwapchains = swap_chains;
 
-			result = vkQueuePresentKHR(presentQueue, &presentInfo);
+			present_info.pImageIndices = &image_index;
 
-			if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || window_resized) {
+			result = vkQueuePresentKHR(presentQueue, &present_info);
 
-				window_resized = false;
+			if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
 				recreateSwapChain();
 			}
 			else if (result != VK_SUCCESS) {
@@ -1758,17 +1764,18 @@ namespace fan {
 
 		VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) {
 			// VK_FORMAT_B8G8R8A8_SRGB
-			for (const auto& availableFormat : availableFormats) {
+			/*for (const auto& availableFormat : availableFormats) {
 				if (availableFormat.format == VK_FORMAT_R8G8B8A8_SRGB && availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
 					return availableFormat;
 				}
-			}
+			}*/
 
 			return availableFormats[0];
 		}
 
 		VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes) {
 
+			return VK_PRESENT_MODE_IMMEDIATE_KHR;
 
 			for (const auto& availablePresentMode : availablePresentModes) {
 				if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
@@ -1777,7 +1784,6 @@ namespace fan {
 			}
 
 			//return VK_PRESENT_MODE_FIFO_KHR; sync to blank
-			return VK_PRESENT_MODE_IMMEDIATE_KHR;
 		}
 
 		VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) {
@@ -1816,7 +1822,7 @@ namespace fan {
 			VK_KHR_SWAPCHAIN_EXTENSION_NAME
 		};
 
-		static constexpr int MAX_FRAMES_IN_FLIGHT = 1;
+		static constexpr int MAX_FRAMES_IN_FLIGHT = 10;
 
 		// decreases fps when enabled
 		static constexpr bool enable_validation_layers = false;
@@ -1854,6 +1860,8 @@ namespace fan {
 		std::vector<VkSemaphore> imageAvailableSemaphores;
 		std::vector<VkSemaphore> renderFinishedSemaphores;
 
+		std::vector<VkSemaphore> data_edit_semaphore;
+
 		std::vector<VkFence> inFlightFences;
 		std::vector<VkFence> imagesInFlight;
 
@@ -1865,7 +1873,9 @@ namespace fan {
 
 		bool window_resized = false;
 
-		std::mutex graphics_queue_mutex;
+		using staging_buffer_t = fan::vk::gpu_memory::glsl_location_handler<fan::vk::gpu_memory::buffer_type::staging>;
+
+		staging_buffer_t* staging_buffer = nullptr;
 
 	};
 

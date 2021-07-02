@@ -711,11 +711,6 @@ void fan_2d::graphics::rectangle::erase(uint32_t begin, uint32_t end)
 	ebo_t::m_buffer_object.erase(ebo_t::m_buffer_object.end() - (end - begin) * 6, ebo_t::m_buffer_object.end());
 }
 
-fan::vec2 get_transformed_point(fan::vec2 input, float a) {
-	float x = input.x * cos(a) - input.y * sin(a);
-	float y = input.x * sin(a) + input.y * cos(a);
-	return fan::vec2(x, y);
-}
 
 void fan_2d::graphics::rectangle::clear()
 {
@@ -724,6 +719,12 @@ void fan_2d::graphics::rectangle::clear()
 	size_t::clear();
 	angle_t::clear();
 	ebo_t::clear();
+}
+
+fan::vec2 get_transformed_point(fan::vec2 input, float a) {
+	float x = input.x * cos(a) - input.y * sin(a);
+	float y = input.x * sin(a) + input.y * cos(a);
+	return fan::vec2(x, y);
 }
 
 // 0 top left, 1 top right, 2 bottom left, 3 bottom right
@@ -1687,7 +1688,7 @@ void fan_2d::graphics::light::set_color(uint32_t i, const fan::color& color)
 }
 
 void fan_3d::graphics::add_camera_rotation_callback(fan::camera* camera) {
-	camera->m_window->add_mouse_move_callback(std::function<void(fan::window*)>(std::bind(&fan::camera::rotate_camera, camera, 0)));
+	camera->m_window->add_mouse_move_callback(std::function<void(const fan::vec2i& position)>(std::bind(&fan::camera::rotate_camera, camera, 0)));
 }
 
 fan_3d::graphics::terrain_generator::terrain_generator(fan::camera* camera, const std::string& path, const f32_t texture_scale, const fan::vec3& position, const fan::vec2ui& map_size, f_t triangle_size, const fan::vec2& mesh_size)

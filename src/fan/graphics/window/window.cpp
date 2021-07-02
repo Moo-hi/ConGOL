@@ -223,7 +223,6 @@ fan::window& fan::window::operator=(const window& window)
 	this->m_key_callback = window.m_key_callback;
 	this->m_last_frame = window.m_last_frame;
 	this->m_max_fps = window.m_max_fps;
-	this->m_mouse_move_callback = window.m_mouse_move_callback;
 	this->m_mouse_move_position_callback = window.m_mouse_move_position_callback;
 	this->m_mouse_position = window.m_mouse_position;
 	this->m_move_callback = window.m_move_callback;
@@ -232,7 +231,6 @@ fan::window& fan::window::operator=(const window& window)
 	this->m_fps_next_tick = window.m_fps_next_tick;
 	this->m_received_fps = window.m_received_fps;
 	this->m_resize_callback = window.m_resize_callback;
-	this->m_scroll_callback = window.m_scroll_callback;
 	this->m_close_callback = window.m_close_callback;
 	this->m_size = window.m_size;
 	this->m_vsync = window.m_vsync;
@@ -288,7 +286,6 @@ fan::window& fan::window::operator=(window&& window)
 	this->m_key_callback = window.m_key_callback;
 	this->m_last_frame = std::move(window.m_last_frame);
 	this->m_max_fps = std::move(window.m_max_fps);
-	this->m_mouse_move_callback = window.m_mouse_move_callback;
 	this->m_mouse_move_position_callback = window.m_mouse_move_position_callback;
 	this->m_mouse_position = std::move(window.m_mouse_position);
 	this->m_move_callback = window.m_move_callback;
@@ -297,7 +294,6 @@ fan::window& fan::window::operator=(window&& window)
 	this->m_fps_next_tick = std::move(window.m_fps_next_tick);
 	this->m_received_fps = std::move(window.m_received_fps);
 	this->m_resize_callback = window.m_resize_callback;
-	this->m_scroll_callback = window.m_scroll_callback;
 	this->m_close_callback = window.m_close_callback;
 	this->m_size = std::move(window.m_size);
 	this->m_vsync = std::move(window.m_vsync);
@@ -771,36 +767,20 @@ void fan::window::remove_keys_callback()
 	this->m_keys_callback = 0;
 }
 
-std::deque<fan::window::key_callback_t>::iterator fan::window::add_key_callback(uint16_t key, const std::function<void()>& function)
+std::deque<fan::window::key_callback_t>::iterator fan::window::add_key_callback(uint16_t key, key_state state, const std::function<void()>& function)
 {
-	this->m_key_callback.emplace_back(key_callback_t{ key, function, false });
+	this->m_key_callback.emplace_back(key_callback_t{ key, state, function });
 
 	return this->m_key_callback.end() - 1;
 }
 
-void fan::window::edit_key_callback(std::deque<key_callback_t>::iterator it, uint16_t key)
+void fan::window::edit_key_callback(std::deque<key_callback_t>::iterator it, uint16_t key, key_state state)
 {
 	it->key = key;
+	it->state = state;
 }
 
 void fan::window::remove_key_callback(std::deque<key_callback_t>::const_iterator it)
-{
-	this->m_key_callback.erase(it);
-}
-
-std::deque<fan::window::key_callback_t>::iterator fan::window::add_key_release_callback(uint16_t key, const std::function<void()>& function)
-{
-	this->m_key_callback.emplace_back(key_callback_t{ key, function, true });
-
-	return this->m_key_callback.end() - 1;
-}
-
-void fan::window::edit_key_release_callback(std::deque<key_callback_t>::iterator it, uint16_t key)
-{
-	it->key = key;
-}
-
-void fan::window::remove_key_release_callback(std::deque<key_callback_t>::const_iterator it)
 {
 	this->m_key_callback.erase(it);
 }
@@ -837,25 +817,6 @@ std::deque<fan::window::mouse_move_position_callback_t>::iterator fan::window::a
 void fan::window::remove_mouse_move_callback(std::deque<mouse_move_position_callback_t>::const_iterator it)
 {
 	this->m_mouse_move_position_callback.erase(it);
-}
-
-std::deque<fan::window::mouse_move_callback_t>::iterator fan::window::add_mouse_move_callback(const mouse_move_callback_t& function)
-{
-	this->m_mouse_move_callback.emplace_back(function);
-
-	return this->m_mouse_move_callback.end() - 1;
-}
-
-std::deque<fan::window::scroll_callback_t>::iterator fan::window::add_scroll_callback(const scroll_callback_t& function)
-{
-	this->m_scroll_callback.emplace_back(function);
-
-	return this->m_scroll_callback.end() - 1;
-}
-
-void fan::window::remove_scroll_callback(std::deque<scroll_callback_t>::const_iterator it)
-{
-	this->m_scroll_callback.erase(it);
 }
 
 std::deque<std::function<void()>>::iterator fan::window::add_resize_callback(const std::function<void()>& function)
@@ -1067,7 +1028,7 @@ void fan::window::window_input_action(fan::window_t window, uint16_t key) {
 	}
 
 	for (const auto& i : fwindow->m_key_callback) {
-		if (key != i.key || i.release || !fwindow->m_keys_action[key]) {
+		if (key != i.key || i.state == key_state::release || !fwindow->m_keys_action[key]) {
 			continue;
 		}
 
@@ -1097,7 +1058,7 @@ void fan::window::window_input_mouse_action(fan::window_t window, uint16_t key)
 	fan::window_input::get_keys(fwindow->m_keys_down, key, true);
 
 	for (const auto& i : fwindow->m_key_callback) {
-		if (key != i.key || i.release) {
+		if (key != i.key || i.state == key_state::release) {
 			continue;
 		}
 		if (i.function) {
@@ -1127,7 +1088,7 @@ void fan::window::window_input_up(fan::window_t window, uint16_t key)
 	}
 
 	for (const auto& i : fwindow->m_key_callback) {
-		if (key != i.key || !i.release) {
+		if (key != i.key || i.state == key_state::press) {
 			continue;
 		}
 		if (i.function) {
@@ -1252,12 +1213,6 @@ LRESULT fan::window::window_proc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpar
 			for (const auto& i : window->m_mouse_move_position_callback) {
 				if (i) {
 					i(window->m_mouse_position);
-				}
-			}
-
-			for (const auto& i : window->m_mouse_move_callback) {
-				if (i) {
-					i(window);
 				}
 			}
 
@@ -1945,7 +1900,7 @@ void fan::window::handle_events() {
 				window->m_current_key = key;
 
 				if (window->m_keys_callback) {
-					window->m_keys_callback(key);
+					window->m_keys_callback(key, key_state::press);
 				}
 
 				break;
@@ -2033,48 +1988,6 @@ void fan::window::handle_events() {
 
 				break;
 			}
-		/*	case WM_LBUTTONUP:
-			{
-				auto window = fan::get_window_by_id(msg.hwnd);
-
-				if (!window) {
-					break;
-				}
-
-				const uint16_t key = fan::input::mouse_left;
-
-				window_input_up(window->m_window, key);
-
-				break;
-			}
-			case WM_RBUTTONUP:
-			{
-				auto window = fan::get_window_by_id(msg.hwnd);
-
-				if (!window) {
-					break;
-				}
-
-				const uint16_t key = fan::input::mouse_right;
-
-				window_input_up(window->m_window, key);
-
-				break;
-			}
-			case WM_MBUTTONUP:
-			{
-				auto window = fan::get_window_by_id(msg.hwnd);
-
-				if (!window) {
-					break;
-				}
-
-				const uint16_t key = fan::input::mouse_middle;
-
-				window_input_up(window->m_window, key);
-
-				break;
-			}*/
 			case WM_KEYUP:
 			{
 				auto window = fan::get_window_by_id(msg.hwnd);
@@ -2088,6 +2001,11 @@ void fan::window::handle_events() {
 				handle_special(msg.wParam, msg.lParam, key, false);
 
 				window_input_up(window->m_window, key);
+
+				if (window->m_keys_callback) {
+					window->m_keys_callback(key, key_state::release);
+				}
+
 				break;
 			}
 			case WM_MOUSEWHEEL:
@@ -2101,10 +2019,8 @@ void fan::window::handle_events() {
 
 				fan::window::window_input_mouse_action(window->m_window, zDelta < 0 ? fan::input::mouse_scroll_down : fan::input::mouse_scroll_up);
 
-				for (const auto& i : window->m_scroll_callback) {
-					if (i) {
-						i(zDelta < 0 ? fan::input::mouse_scroll_down : fan::input::mouse_scroll_up);
-					}
+				if (window->m_keys_callback) {
+					window->m_keys_callback(zDelta < 0 ? fan::input::mouse_scroll_down : fan::input::mouse_scroll_up, key_state::press);
 				}
 
 				break;
@@ -2190,15 +2106,27 @@ void fan::window::handle_events() {
 
 					else if (fan::is_flag(raw->data.mouse.usButtonFlags, RI_MOUSE_LEFT_BUTTON_UP)) {
 
+						if (window->m_keys_callback) {
+							window->m_keys_callback(fan::input::mouse_left, key_state::release);
+						}
+
 						window_input_up(window->m_window, fan::input::mouse_left); allow_outside = false;
 					}
 
 					else if (fan::is_flag(raw->data.mouse.usButtonFlags, RI_MOUSE_MIDDLE_BUTTON_UP)) {
 
+						if (window->m_keys_callback) {
+							window->m_keys_callback(fan::input::mouse_middle, key_state::release);
+						}
+
 						window_input_up(window->m_window, fan::input::mouse_middle); allow_outside = false;
 					}
 
 					else if (fan::is_flag(raw->data.mouse.usButtonFlags, RI_MOUSE_RIGHT_BUTTON_UP)) {
+
+						if (window->m_keys_callback) {
+							window->m_keys_callback(fan::input::mouse_right, key_state::release);
+						}
 
 						window_input_up(window->m_window, fan::input::mouse_right); allow_outside = false;
 					}
@@ -2425,14 +2353,6 @@ void fan::window::handle_events() {
 					}
 				}
 
-				auto mouse_move_callback = window->m_mouse_move_callback;
-
-				for (const auto& i : mouse_move_callback) {
-					if (i) {
-						i(window);
-					}
-				}
-
 				window->m_previous_mouse_position = window->m_mouse_position;
 
 				window->m_mouse_position = position;
@@ -2450,30 +2370,7 @@ void fan::window::handle_events() {
 
 				uint16_t key = fan::window_input::convert_keys_to_fan(event.xbutton.button);
 
-				switch (key) {
-					case fan::input::mouse_scroll_up:
-					case fan::input::mouse_scroll_down:
-					{
-
-						for (const auto& i : window->m_scroll_callback) {
-							if (i) {
-								i(key);
-							}
-						}
-
-						window->window_input_mouse_action(window->m_window, key);
-
-						break;
-					}
-					default:
-					{
-
-						window->window_input_mouse_action(window->m_window, key);
-
-						break;
-					}
-				}
-
+				window->window_input_mouse_action(window->m_window, key);
 
 				break;
 			}

@@ -1,5 +1,7 @@
 #include <fan/graphics/vulkan/vk_graphics.hpp>
 
+#include <fan/physics/collision/rectangle.hpp>
+
 #if fan_renderer == fan_renderer_vulkan
 
 fan_2d::vk::graphics::rectangle::rectangle(fan::camera* camera)
@@ -46,7 +48,14 @@ fan_2d::vk::graphics::rectangle::rectangle(fan::camera* camera)
 		"glsl/2D/test_fragment.frag"
 	);
 
-	instance_buffer = new instance_buffer_t(vk_instance->device, vk_instance->physicalDevice, 1);
+	instance_buffer = new instance_buffer_t(
+		&vk_instance->device, 
+		&vk_instance->physicalDevice,
+		&vk_instance->commandPool,
+		vk_instance->staging_buffer,
+		&vk_instance->graphicsQueue,
+		1
+	);
 
 	vk_instance->push_back_draw_call([&](uint32_t i, uint32_t j) {
 
@@ -72,20 +81,16 @@ fan_2d::vk::graphics::rectangle::rectangle(fan::camera* camera)
 
 		vkCmdBindPipeline(m_camera->m_window->m_vulkan->commandBuffers[0][i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_camera->m_window->m_vulkan->pipelines.pipeline_info[j].pipeline);
 
-		VkBuffer vertexBuffers[] = { instance_buffer->m_buffer_object };
+		VkBuffer vertexBuffers[] = { instance_buffer->buffer->m_buffer_object };
 		VkDeviceSize offsets[] = { 0 };
 		vkCmdBindVertexBuffers(m_camera->m_window->m_vulkan->commandBuffers[0][i], 0, 1, vertexBuffers, offsets);
-
-		//vkCmdDrawIndexed(commandBuffers[i], static_cast<uint32_t>(indices.size()), 1, 0, 0, 0);
-
-		//vkCmdBindIndexBuffer(commandBuffers[i], indexBuffer, 0, VK_INDEX_TYPE_UINT16);
 
 		vkCmdBindDescriptorSets(m_camera->m_window->m_vulkan->commandBuffers[0][i], VK_PIPELINE_BIND_POINT_GRAPHICS, m_camera->m_window->m_vulkan->pipelines.pipeline_layout, 0, 1, &m_camera->m_window->m_vulkan->descriptorSets[i], 0, nullptr);
 
 		vkCmdDraw(m_camera->m_window->m_vulkan->commandBuffers[0][i], 6, m_end, 0, m_begin);
 
 		vkCmdEndRenderPass(m_camera->m_window->m_vulkan->commandBuffers[0][i]);
-
+		
 		if (vkEndCommandBuffer(m_camera->m_window->m_vulkan->commandBuffers[0][i]) != VK_SUCCESS) {
 			throw std::runtime_error("failed to record command buffer!");
 		}
@@ -101,10 +106,13 @@ fan_2d::vk::graphics::rectangle::~rectangle()
 
 void fan_2d::vk::graphics::rectangle::push_back(const fan::vec2& position, const fan::vec2& size, const fan::color& color, f32_t angle) {
 
-	m_instance.emplace_back(instance_t{ position, size, color, angle });
+	instance_buffer->push_back(instance_t{ position, size, color, angle });
 
 	if (!fan::vk::gpu_memory::gpu_queue) {
-		this->write_data();
+		instance_buffer->write_data();
+
+		m_camera->m_window->m_vulkan->erase_command_buffers();
+		m_camera->m_window->m_vulkan->create_command_buffers();
 	}
 
 }
@@ -132,7 +140,7 @@ void fan_2d::vk::graphics::rectangle::draw()
 		vkDeviceWaitIdle(m_camera->m_window->m_vulkan->device);
 
 		m_camera->m_window->m_vulkan->erase_command_buffers();
-		m_camera->m_window->m_vulkan->createCommandBuffers();
+		m_camera->m_window->m_vulkan->create_command_buffers();
 
 	}
 
@@ -161,7 +169,7 @@ void fan_2d::vk::graphics::rectangle::draw(uint32_t begin, uint32_t end)
 		vkDeviceWaitIdle(m_camera->m_window->m_vulkan->device);
 
 		m_camera->m_window->m_vulkan->erase_command_buffers();
-		m_camera->m_window->m_vulkan->createCommandBuffers();
+		m_camera->m_window->m_vulkan->create_command_buffers();
 
 	}
 
@@ -169,129 +177,178 @@ void fan_2d::vk::graphics::rectangle::draw(uint32_t begin, uint32_t end)
 
 void fan_2d::vk::graphics::rectangle::write_data()
 {
+	instance_buffer->buffer->free_buffer();
+	instance_buffer->buffer->allocate_buffer(sizeof(instance_t) * instance_buffer->size());
 
-	vkDeviceWaitIdle(m_camera->m_window->m_vulkan->device);
-
-	fan::vulkan* vk_instance = m_camera->m_window->m_vulkan;
-
-	VkDeviceSize bufferSize = sizeof(instance_t) * m_instance.size();
-
-	staging_buffer = new staging_buffer_t(vk_instance->device, vk_instance->physicalDevice, bufferSize);
-
-	instance_buffer->free_buffer();
-	instance_buffer->allocate_buffer(bufferSize);
-
-	void* data;
-	vkMapMemory(
-		vk_instance->device,
-		staging_buffer->m_device_memory,
-		0,
-		bufferSize,
-		0,
-		&data
-	);
-
-	memcpy(data, m_instance.data(), (size_t)bufferSize);
-	vkUnmapMemory(vk_instance->device, staging_buffer->m_device_memory);
-
-	fan::vk::gpu_memory::copy_buffer(vk_instance->device, vk_instance->commandPool, vk_instance->graphicsQueue, staging_buffer->m_buffer_object, instance_buffer->m_buffer_object, bufferSize);
-
+	instance_buffer->write_data();
 
 	m_camera->m_window->m_vulkan->erase_command_buffers();
-
-	m_camera->m_window->m_vulkan->createCommandBuffers();
-
-	delete staging_buffer;
+	m_camera->m_window->m_vulkan->create_command_buffers();
 }
 
 void fan_2d::vk::graphics::rectangle::edit_data()
 {
-
-	static VkSubmitInfo submit_info{};
-
-	static VkCommandBufferBeginInfo begin_info{};
-
-	if (!m_camera->m_window->m_vulkan->commandBuffers[1][0]) {
-		
-
-		static VkCommandBufferAllocateInfo alloc_info{};
-		alloc_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-		alloc_info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-		alloc_info.commandPool = m_camera->m_window->m_vulkan->commandPool;
-		alloc_info.commandBufferCount = 1;
-
-		vkAllocateCommandBuffers(m_camera->m_window->m_vulkan->device, &alloc_info, &m_camera->m_window->m_vulkan->commandBuffers[1][0]);
-
-		begin_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-		begin_info.flags = VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT;
-
-		
-
-	}
-
-	vkBeginCommandBuffer(m_camera->m_window->m_vulkan->commandBuffers[1][0], &begin_info);
-
-	vkCmdUpdateBuffer(m_camera->m_window->m_vulkan->commandBuffers[1][0], instance_buffer->m_buffer_object, 0, sizeof(instance_t) * this->size(), m_instance.data());
-
-	vkEndCommandBuffer(m_camera->m_window->m_vulkan->commandBuffers[1][0]);
-
-	submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-	submit_info.commandBufferCount = 1;
-	submit_info.pCommandBuffers = &m_camera->m_window->m_vulkan->commandBuffers[1][0];
-
-	vkQueueSubmit(m_camera->m_window->m_vulkan->graphicsQueue, 1, &submit_info, VK_NULL_HANDLE);
-
-//	fan::print(command_buffer);
-
-	vkQueueWaitIdle(m_camera->m_window->m_vulkan->graphicsQueue);
-
-	//delete staging_buffer;
+	instance_buffer->write_data();
 }
 
 uint32_t fan_2d::vk::graphics::rectangle::size() const {
 
-	return m_instance.size();
+	return instance_buffer->size();
+}
+
+void fan_2d::vk::graphics::rectangle::insert(uint32_t i, const fan::vec2& position, const fan::vec2& size, const fan::color& color, f32_t angle) {
+	instance_buffer->m_instance.insert(instance_buffer->m_instance.begin() + i, instance_t{ position, size, color, angle });
+
+	if (!fan::vk::gpu_memory::gpu_queue) {
+		this->write_data();
+	}
+}
+
+void fan_2d::vk::graphics::rectangle::reserve(uint32_t size) {
+	instance_buffer->m_instance.reserve(size);
+}
+void fan_2d::vk::graphics::rectangle::resize(uint32_t size, const fan::color& color) {
+	instance_buffer->m_instance.resize(size, instance_t{ 0, 0, color, 0 });
+
+	if (!fan::vk::gpu_memory::gpu_queue) {
+		this->write_data();
+	}
+}
+
+void fan_2d::vk::graphics::rectangle::erase(uint32_t i) {
+	instance_buffer->m_instance.erase(instance_buffer->m_instance.begin() + i);
+
+	if (!fan::vk::gpu_memory::gpu_queue) {
+		this->write_data();
+	}
+}
+void fan_2d::vk::graphics::rectangle::erase(uint32_t begin, uint32_t end) {
+	instance_buffer->m_instance.erase(instance_buffer->m_instance.begin() + begin, instance_buffer->m_instance.begin() + end);
+
+	if (!fan::vk::gpu_memory::gpu_queue) {
+		this->write_data();
+	}
+}
+
+// erases everything
+void fan_2d::vk::graphics::rectangle::clear() {
+	instance_buffer->m_instance.clear();
+
+	if (!fan::vk::gpu_memory::gpu_queue) {
+		this->write_data();
+	}
+}
+
+static fan::vec2 get_transformed_point(fan::vec2 input, float a) {
+	float x = input.x * cos(a) - input.y * sin(a);
+	float y = input.x * sin(a) + input.y * cos(a);
+	return fan::vec2(x, y);
+}
+
+constexpr fan_2d::vk::graphics::rectangle_corners_t get_rectangle_corners_no_rotation(const fan::vec2& position, const fan::vec2& size) {
+	return { position, position + fan::vec2(size.x, 0), position + fan::vec2(0, size.y), position + size };
+}
+
+
+fan_2d::vk::graphics::rectangle_corners_t fan_2d::vk::graphics::rectangle::get_corners(uint32_t i) const
+{
+	auto position = this->get_position(i);
+	auto size = this->get_size(i);
+
+	fan::vec2 mid = position + size / 2;
+
+	auto corners = get_rectangle_corners_no_rotation(position, size);
+
+	f32_t angle = -instance_buffer->get_value(i).angle;
+
+	fan::vec2 top_left = get_transformed_point(corners[0] - mid, angle) + mid;
+	fan::vec2 top_right = get_transformed_point(corners[1] - mid, angle) + mid;
+	fan::vec2 bottom_left = get_transformed_point(corners[2] - mid, angle) + mid;
+	fan::vec2 bottom_right = get_transformed_point(corners[3] - mid, angle) + mid;
+
+	return { top_left, top_right, bottom_left, bottom_right };
 }
 
 f32_t fan_2d::vk::graphics::rectangle::get_angle(uint32_t i) const
 {
-	return m_instance[i].angle;
+	return instance_buffer->get_value(i).angle;
 }
 
 void fan_2d::vk::graphics::rectangle::set_angle(uint32_t i, f32_t angle)
 {
-	m_instance[i].angle = angle;
+
+	instance_buffer->get_value(i).angle = angle;
 
 	if (!fan::vk::gpu_memory::gpu_queue) {
 
-		fan::vulkan* vk_instance = m_camera->m_window->m_vulkan;
-
-		VkDeviceSize bufferSize = sizeof(m_instance[0]);
-
-		staging_buffer = new staging_buffer_t(vk_instance->device, vk_instance->physicalDevice, bufferSize);
-
-		void* data;
-		vkMapMemory(
-			vk_instance->device,
-			staging_buffer->m_device_memory,
-			0,
-			bufferSize,
-			0,
-			&data
-		);
-		
-		memcpy(data, &m_instance[i], (std::size_t)bufferSize);
-		vkUnmapMemory(vk_instance->device, staging_buffer->m_device_memory);
-
-		fan::vk::gpu_memory::copy_buffer(vk_instance->device, vk_instance->commandPool, vk_instance->graphicsQueue, staging_buffer->m_buffer_object, instance_buffer->m_buffer_object, bufferSize, 0, sizeof(instance_t) * i);
+		instance_buffer->edit_data(i);
 
 		m_camera->m_window->m_vulkan->erase_command_buffers();
 
-		m_camera->m_window->m_vulkan->createCommandBuffers();
+		m_camera->m_window->m_vulkan->create_command_buffers();
 
-		delete staging_buffer;
 	}
 
+}
+
+const fan::color fan_2d::vk::graphics::rectangle::get_color(uint32_t i) const {
+	return instance_buffer->get_value(i).color;
+}
+void fan_2d::vk::graphics::rectangle::set_color(uint32_t i, const fan::color& color) {
+
+	instance_buffer->get_value(i).color = color;
+
+	if (!fan::vk::gpu_memory::gpu_queue) {
+
+		instance_buffer->edit_data(i);
+
+		m_camera->m_window->m_vulkan->erase_command_buffers();
+
+		m_camera->m_window->m_vulkan->create_command_buffers();
+
+	}
+}
+
+fan::vec2 fan_2d::vk::graphics::rectangle::get_position(uint32_t i) const {
+	return instance_buffer->get_value(i).position;
+}
+void fan_2d::vk::graphics::rectangle::set_position(uint32_t i, const fan::vec2& position) {
+	instance_buffer->get_value(i).position = position;
+
+	if (!fan::vk::gpu_memory::gpu_queue) {
+
+		instance_buffer->edit_data(i);
+
+		m_camera->m_window->m_vulkan->erase_command_buffers();
+
+		m_camera->m_window->m_vulkan->create_command_buffers();
+
+	}
+}
+
+fan::vec2 fan_2d::vk::graphics::rectangle::get_size(uint32_t i) const {
+	return instance_buffer->get_value(i).size;
+}
+void fan_2d::vk::graphics::rectangle::set_size(uint32_t i, const fan::vec2& size) {
+	instance_buffer->get_value(i).size = size;
+
+	if (!fan::vk::gpu_memory::gpu_queue) {
+
+		instance_buffer->edit_data(i);
+
+		m_camera->m_window->m_vulkan->erase_command_buffers();
+
+		m_camera->m_window->m_vulkan->create_command_buffers();
+
+	}
+}
+
+//	void release_queue(bool position, bool size, bool angle, bool color, bool indices);
+
+bool fan_2d::vk::graphics::rectangle::inside(uint_t i, const fan::vec2& position) const {
+	auto corners = get_corners(i);
+
+	return fan_2d::collision::rectangle::point_inside(corners[0], corners[1], corners[2], corners[3], position == fan::math::inf ? fan::cast<fan::vec2::value_type>(this->m_camera->m_window->get_mouse_position()) : position);
 }
 
 #endif

@@ -271,8 +271,6 @@ namespace fan_2d {
 
 			rectangle_corners_t get_corners(uint32_t i = 0) const;
 
-			fan::vec2 get_center(uint32_t i = 0) const;
-
 			f32_t get_angle(uint32_t i = 0) const;
 			void set_angle(uint32_t i, f32_t angle);
 
@@ -291,11 +289,7 @@ namespace fan_2d {
 
 			bool inside(uint_t i, const fan::vec2& position = fan::math::inf) const;
 
-			void set_draw_order(draw_mode mode);
-
 			uint32_t* get_vao();
-
-			//void set_draw_order(uint32_t i, draw_mode mode);
 
 			fan::camera* m_camera = nullptr;
 
@@ -462,7 +456,6 @@ namespace fan_2d {
 
 			using fan_2d::graphics::rectangle::get_angle;
 			using fan_2d::graphics::rectangle::set_angle;
-			using fan_2d::graphics::rectangle::get_center;
 			using fan_2d::graphics::rectangle::inside;
 
 			using fan_2d::graphics::rectangle::m_camera;
