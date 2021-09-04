@@ -111,17 +111,56 @@ void Grid::toggle_simulation() {
 	ticking_ = !ticking_;
 }
 
-void Grid::toggle_measure() {
-	//fading_text_notification();
+Grid::cellvec2 Grid::cv_to_cv2D(cellvec& cv) {
+	cellvec2 cv2;
 
-	//text_.set_text(0, L"|");
-	
-	//text_.set_position(0, map_[translate_mouse_to_gridmap()]);
-	//text_.set_text_color(0, fan::color::rgb(r, g, b, a));
+	const int row_size = horizontal_increment_;
+
+	// As long as there are cells left
+	int cell_count = 0;
+	cellvec row_to_be_added;
+	for (size_t i = 0; i < cv.size(); i++)
+	{
+		// Fill rows with cells if they're not full
+		if (cell_count != row_size) {
+			row_to_be_added.push_back(cv[i]);
+			cell_count++;
+		}
+		else {
+			// If row is full, move on to next row & re-init the cell_count. Push the row & reset for next round
+			cell_count = 0;
+			cv2.push_back(row_to_be_added);
+			row_to_be_added.clear();
+			i--; // Offset iterator i as we didn't use a cell during this iteration
+		}
+	}
+	cv2.push_back(row_to_be_added);
+
+	return cv2;
 }
+
+Grid::cellvec Grid::cv2D_to_cv(cellvec2& cv2) {
+	cellvec cv;
+
+	for (size_t row = 0; row < cv2.size(); row++)
+	{
+		// Column
+		for (size_t i = 0; i < cv2[row].size(); i++)
+		{
+			cv.push_back(cv2[row][i]);
+		}
+	}
+
+	return cv;
+}
+
 
 // Apply the game rules & necessary corrections upon boundary overlaps (side overlap
 void Grid::evolve() {
+	// unimplemented
+	//cellvec2 cells2D_ = cv_to_cv2D(this->cells_); // convert cells from 1D to 2D
+	// unimplemented ^^^^^^
+
 	std::vector<Cell> live_cells = get_live_cells();
 
 	// Save current state
@@ -132,6 +171,8 @@ void Grid::evolve() {
 
 	std::vector<int> live_indices;
 	std::vector<int> kill_indices; // is there a better, in this case, more readable solution?
+
+	
 
 	for (int i = 0; i < live_cells.size(); i++)
 	{

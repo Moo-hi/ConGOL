@@ -4,6 +4,7 @@
 #include <fan/graphics/gui.hpp>
 #include <fan/math/random.hpp>
 #include <vector>
+#include "Grid.h"
 
 class Grid
 {
@@ -17,25 +18,6 @@ private:
 			this->index = index;
 		}
 
-		// Returns the upmost cell index relative to argument cell
-		int upmost(Grid& grid) {
-			uint32_t i = index;
-
-			while (i - grid.get_window_divisor() > 0) {
-				i -= grid.get_window_divisor();
-			}
-			return i;
-		}
-
-		// Returns the bottom cell index relative to argument cell
-		int bottom(Grid& grid) {
-			int i = index;
-			while (i + grid.get_window_divisor() < grid.cells_.size()) {
-				i += grid.get_window_divisor();
-			}
-			return i;
-		}
-
 		// Returns indices (8) around a cell (top to bottom)
 		std::vector<Cell> perimeter(Grid& grid) {
 			int i = index;
@@ -46,7 +28,16 @@ private:
 
 			
 			i = i - vertical_increment - 1;
-			perimeter.push_back(grid.cells_[i]);
+			if (i == (0 - vertical_increment - 1)) {
+				perimeter.push_back(grid.cells_.back());
+			}
+			else if (i == (0 - vertical_increment)) {
+				perimeter.push_back(grid.cells_[Corners(grid).LowerLeft]);
+			}
+			else if (i == (0 - vertical_increment + 1)) {
+
+			}
+			else perimeter.push_back(grid.cells_[i]);
 
 			i++;
 			perimeter.push_back(grid.cells_[i]);
@@ -152,16 +143,11 @@ private:
 			map_ = grid->map_;
 			cell_size_ = fan::cast<float>(grid->camera_->m_window->get_size()) / sqrt(cells_.size());
 		}
-
-		void import_file() {
-
-		}
-
-		void export_file() {
-
-		}
-
 	};
+
+
+	typedef std::vector<Cell> cellvec;
+	typedef std::vector<std::vector<Cell>> cellvec2;
 
 
 	inline static fan::camera* camera_; // includes window as a member variable
@@ -181,43 +167,8 @@ private:
 	std::vector<Cell> cells_;	// Stores cell data
 	fan::vec2 cell_size_;
 
-	// How many times current window is divided
 	int get_window_divisor() {
 		return (int)sqrt(cells_.size());
-	}
-
-	void fading_text_notification(int i, fan::fstring text, fan::vec2 position, fan::color text_color=fan::colors::aqua, f32_t font_size=13) {
-		//text_.set_text(i, text);
-		//text_.set_position(i, position);
-		//text_.set_text_color(i, text_color);
-		//text_.set_font_size(i, font_size);
-		
-		//if (outline_color != fan::uninitialized) text_.set_outline_color(i, outline_color);
-
-		// todo 
-		//std::thread test([&r, &g, &b, &a, &testhook]() {
-		//    const int MIN = 128;
-		//    const int MAX = 255;
-		//    const int DELAY_MS = 1000;
-
-		//    while (true) {
-		//        ThreadedColorModifiers::FlipFade(&r, NULL, NULL, &a, MIN, MAX, false); // fade down
-		//        std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-		//        ThreadedColorModifiers::FlipFade(&r, NULL, NULL, &a, MIN, MAX, true); // r up
-		//        std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-
-		//        ThreadedColorModifiers::FlipFade(NULL, &g,NULL, &a, MIN, MAX, false); // fade down
-		//        std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-		//        ThreadedColorModifiers::FlipFade(NULL, &g, NULL, &a, MIN, MAX, true); // g up
-		//        std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-
-		//        ThreadedColorModifiers::FlipFade(NULL, NULL, &b, &a, MIN, MAX, false); // fade down
-		//        std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-		//        ThreadedColorModifiers::FlipFade(NULL, NULL, &b, &a, MIN, MAX, true); // b up
-		//        std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-		//    }
-		//    });
-		//test.detach();
 	}
 
 	void update_cursor_highlight() { // make proper abstractions
@@ -257,8 +208,10 @@ public:
 	// Change state of simulation (play/pause)
 	void toggle_simulation();
 
-	// Brings up the measuring tool for aid in drawing
-	void toggle_measure();
+	// Convert from one-dimensional to two-dimensional vector of cells & vice-versa (provided the Grid::horizontal_increment_ is properly updated)
+	cellvec2 cv_to_cv2D(cellvec& cv);
+	cellvec cv2D_to_cv(cellvec2& cv2);
+
 
 	// Proceed a step in evolution according to the game's rules
 	void evolve();

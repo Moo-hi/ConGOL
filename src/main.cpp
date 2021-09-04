@@ -30,7 +30,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Grid.h"
-#include "ThreadedColorModifiers.h"
 #include "Utils.h"
 
 #include <fan/graphics/graphics.hpp>
@@ -77,15 +76,10 @@ int main()
 
     // General settings
     bool show_fps = false;
-    bool enable_measuretool = false;
-
-    // Hooks for threaded modifier funcs - likely due to be refactored away
-    f32_t r = 255, g = 255, b = 255, a = 255;
 
     // Utility variables - due to be refactored away
     bool paint_live = false; // painting live cells .. not sure if user-related
     bool paint_dead = false;  // painting dead cells .. not sure if user-related
-    bool testhook = true;
     int count = 0;
     
     /* Key bindings */ 
@@ -116,64 +110,9 @@ int main()
         }
         });
 
-    // M: Enable measuring tool (incomplete & unimplemented)
-    window.add_key_callback(fan::key_m, fan::key_state::press, [&] { enable_measuretool = !enable_measuretool; });
-
-    // Experimental text fader (incomplete & unimplemented)
-    window.add_key_callback(fan::key_enter, fan::key_state::press, [&] {
-        //std::thread testi2([&r, &g, &b, &a]() { ThreadedColorModifiers::FlipFade(NULL, NULL, &b, &a, true); });
-        //testi2.detach();
-        });
-
-    
-    //ThreadedColorModifiers::FlipFade(&r, &g, &b, &a, 2);
-    //ThreadedColorModifiers::FlipFade(&r, &g, &b, &a);
-
-    //std::thread test([&r, &g, &b, &a, &testhook]() {
-        //const int MIN = 128;
-       // const int MAX = 255;
-        //const int DELAY_MS = 1000;
-
-        //while (testhook) {
-        //    ThreadedColorModifiers::FlipFade(&r, NULL, NULL, &a, MIN, MAX, false); // fade down
-        //    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-        //    ThreadedColorModifiers::FlipFade(&r, NULL, NULL, &a, MIN, MAX, true); // r up
-        //    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-
-        //    ThreadedColorModifiers::FlipFade(NULL, &g,NULL, &a, MIN, MAX, false); // fade down
-        //    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-        //    ThreadedColorModifiers::FlipFade(NULL, &g, NULL, &a, MIN, MAX, true); // g up
-        //    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-
-        //    ThreadedColorModifiers::FlipFade(NULL, NULL, &b, &a, MIN, MAX, false); // fade down
-        //    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-        //    ThreadedColorModifiers::FlipFade(NULL, NULL, &b, &a, MIN, MAX, true); // b up
-        //    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-        //}
-
-        //while (testhook) {
-        //    ThreadedColorModifiers::FadeToColor(&r, &g, &b, &a, fan::colors::red);
-        //    std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-         //   ThreadedColorModifiers::FadeToColor(&r, &g, &b, &a, fan::colors::green);
-         //   std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-    
-    //        ThreadedColorModifiers::FadeToColor(&r, &g, &b, &a, fan::colors::blue);
-      //      std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-            /*ThreadedColorModifiers::FadeToColor(&r, &g, &b, &a, fan::colors::orange);
-            std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-
-            ThreadedColorModifiers::FadeToColor(&r, &g, &b, &a, fan::colors::yellow);
-            std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));
-            ThreadedColorModifiers::FadeToColor(&r, &g, &b, &a, fan::colors::cyan);
-            std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_MS));*/
-      //  }
-       // });
-    //test.detach();
-
     window.loop([&] {
         
         if (show_fps) window.get_fps();
-        if (enable_measuretool) grid.toggle_measure();
         
         if (paint_live) grid.set_alive_at_click();
         if (paint_dead) grid.set_dead_at_click();

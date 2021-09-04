@@ -524,7 +524,6 @@
     <ClInclude Include="src\box2d\dynamics\b2_island.h" />
     <ClInclude Include="src\box2d\dynamics\b2_polygon_circle_contact.h" />
     <ClInclude Include="src\box2d\dynamics\b2_polygon_contact.h" />
-    <ClInclude Include="src\ThreadedColorModifiers.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
