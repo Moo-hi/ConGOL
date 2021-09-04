@@ -20,9 +20,9 @@ Find more information on the game at [wikipedia.org](https://en.wikipedia.org/wi
 - F : Show FPS
 
 ## A very rough description on the technical design
-Class Grid contains a draw method, which draws based on values stored on a private variable named cells_ (a vector of Cell-type objects).
-These Cell objects contain an index & the status (live/dead)
-Grid.Evolve() contains pretty much all the vital game logic itself (modifies cells_ according to the game's rules) - if you feel like contributing, you are very much welcome!
+- Class Grid contains a draw method, which draws based on values stored on a private variable named cells_ (a vector of Cell-type objects).
+- These Cell objects contain an index & the status (live/dead)
+- Grid.Evolve() contains pretty much all the vital game logic itself (modifies cells_ according to the game's rules) - if you feel like contributing, you are very much welcome!
 
 ## Known issues:
 - Crash if evolution extends outside the window (overlap handling is unimplemented in 0.9)
