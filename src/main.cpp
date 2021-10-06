@@ -42,8 +42,7 @@
 // 
 // GENERAL:
 // - Zoom +/-
-// - Measuring tape
-// - Convert grid cell vec to 2D vec
+// - Measuring tape (in square units)
 // 
 //  Known bugs:
 //  - Crash if a tick causes a cell generation that overlaps a corner .. corners overlap handling, TBD!
@@ -55,15 +54,15 @@ int main()
     // // // // // // // // // // // // //
     //      *** USER VARIABLES ***      //
     //  Base grid subdivisions:         //
-    int subdivs = 60;
+    int subdivs = 50;
     //                                  //
-    //  Lower equals faster             //
+    //  Lower is faster                 //
     int tickrate = 25;
     //                                  //
     // // // // // // // // // // // // //
 
     fan::set_console_visibility(false);
-    fan::window window(Utils::RoundToLowerPerfectSquare(fan::get_resolution()) - 100, "Conway's Game of Life");
+    fan::window window(Utils::FloorToPerfectSquare(fan::get_resolution()) - 100, "Conway's Game of Life");
     
     window.set_max_fps(165);
     window.set_vsync(false);
@@ -74,27 +73,20 @@ int main()
     
     Grid grid(&camera, subdivs);
 
-    // General settings
-    bool show_fps = false;
-
-    // Utility variables - due to be refactored away
-    bool paint_live = false; // painting live cells .. not sure if user-related
-    bool paint_dead = false;  // painting dead cells .. not sure if user-related
-    int count = 0;
     
     /* Key bindings */ 
     // Mousefan::key_state::presspaint_live = false;
-    window.add_key_callback(fan::mouse_left, fan::key_state::press, [&]() { paint_live = true; });
-    window.add_key_callback(fan::mouse_left, fan::key_state::release, [&]() { paint_live = false; });
+    window.add_key_callback(fan::mouse_left, fan::key_state::press, [&]() { grid.paintingLive = true; });
+    window.add_key_callback(fan::mouse_left, fan::key_state::release, [&]() { grid.paintingLive = false; });
 
-    window.add_key_callback(fan::mouse_right, fan::key_state::press, [&]() { paint_dead = true; });
-    window.add_key_callback(fan::mouse_right, fan::key_state::release, [&]() { paint_dead = false; });
+    window.add_key_callback(fan::mouse_right, fan::key_state::press, [&]() { grid.paintingDead = true; });
+    window.add_key_callback(fan::mouse_right, fan::key_state::release, [&]() { grid.paintingDead = false; });
 
     // ESC: Close game
     window.add_key_callback(fan::key_escape, fan::key_state::press, [&]() { window.close(); });
 
     // F: Toggle FPS
-    window.add_key_callback(fan::key_f, fan::key_state::press, [&]() { show_fps = !show_fps; window.set_name("Conway's Game of Life"); });
+    window.add_key_callback(fan::key_f, fan::key_state::press, [&]() { grid.show_fps = !grid.show_fps; window.set_name("Conway's Game of Life"); });
 
     // Space: Toggle simulation
     window.add_key_callback(fan::key_space, fan::key_state::press, [&]() { grid.toggle_simulation(); });
@@ -110,14 +102,15 @@ int main()
         }
         });
 
+    int count = 0;
     window.loop([&] {
         
-        if (show_fps) window.get_fps();
+        if (grid.show_fps) window.get_fps();
         
-        if (paint_live) grid.set_alive_at_click();
-        if (paint_dead) grid.set_dead_at_click();
+        if (grid.paintingLive) grid.set_alive_at_click();
+        if (grid.paintingDead) grid.set_dead_at_click();
 
-        // ugly & in terms of setting tickrate a bit counterintuitive, but works for now
+        // ugly, but works for now
         if (count > tickrate && grid.ticking_) {
             grid.evolve();
             count = 0; 

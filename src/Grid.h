@@ -156,6 +156,8 @@ private:
 	fan_2d::graphics::rectangle rects_;
 	fan_2d::graphics::rectangle cursor_rects_;
 
+	
+
 	// Current save slot
 	uint32_t slot_ = 0;
 
@@ -189,6 +191,13 @@ private:
 	}
 
 public:
+	// Utility variables for painting live & dead cells
+	bool paintingLive = false;
+	bool paintingDead = false;
+
+	// Hook for external function (window.get_fps())
+	bool show_fps = false;
+
 	inline static bool ticking_ = false;
 
 	fan::color color_alive_ = fan::colors::white;

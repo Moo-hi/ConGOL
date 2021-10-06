@@ -9,10 +9,11 @@
 
 static class Utils {
 public:
-    static inline fan::vec2i RoundToLowerPerfectSquare(fan::vec2i xy) {
+    // Floors the given vec2i to a value that is perfectly square
+    static inline fan::vec2i FloorToPerfectSquare(fan::vec2i xy) {
         if (xy.x > xy.y) return (fan::vec2i(xy.y, xy.y));
         if (xy.y > xy.x) return (fan::vec2i(xy.x, xy.x));
-        fan::print("Error, func: RoundToLowerPerfectSquare");
+        fan::print("Error, func: FloorToPerfectSquare");
         return fan::vec2i(1, 1);
     }
 };
