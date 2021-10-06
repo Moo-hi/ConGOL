@@ -51,72 +51,46 @@
 
 int main()
 {
-    // // // // // // // // // // // // //
-    //      *** USER VARIABLES ***      //
-    //  Base grid subdivisions:         //
+    //  Grid divisor
     int subdivs = 50;
-    //                                  //
-    //  Lower is faster                 //
-    int tickrate = 25;
-    //                                  //
-    // // // // // // // // // // // // //
 
-    fan::set_console_visibility(false);
-    fan::window window(Utils::FloorToPerfectSquare(fan::get_resolution()) - 100, "Conway's Game of Life");
-    
-    window.set_max_fps(165);
-    window.set_vsync(false);
-
+	fan::window window(Utils::FloorToPerfectSquare(fan::get_resolution()) - 100, "Conway's Game of Life");
     fan::camera camera(&window);
 
-    fan_2d::graphics::gui::text_renderer text(&camera);
+    window.set_max_fps(165);
+    window.set_vsync(false);
     
+    
+    fan::set_console_visibility(false);
+
     Grid grid(&camera, subdivs);
 
-    
-    /* Key bindings */ 
-    // Mousefan::key_state::presspaint_live = false;
-    window.add_key_callback(fan::mouse_left, fan::key_state::press, [&]() { grid.paintingLive = true; });
-    window.add_key_callback(fan::mouse_left, fan::key_state::release, [&]() { grid.paintingLive = false; });
+	/* Key bindings */
+	window.add_key_callback(fan::mouse_left, fan::key_state::press, [&]() { grid.paintingLive = true; });
+	window.add_key_callback(fan::mouse_left, fan::key_state::release, [&]() { grid.paintingLive = false; });
 
-    window.add_key_callback(fan::mouse_right, fan::key_state::press, [&]() { grid.paintingDead = true; });
-    window.add_key_callback(fan::mouse_right, fan::key_state::release, [&]() { grid.paintingDead = false; });
+	window.add_key_callback(fan::mouse_right, fan::key_state::press, [&]() { grid.paintingDead = true; });
+	window.add_key_callback(fan::mouse_right, fan::key_state::release, [&]() { grid.paintingDead = false; });
 
-    // ESC: Close game
-    window.add_key_callback(fan::key_escape, fan::key_state::press, [&]() { window.close(); });
+	// ESC: Close game
+	window.add_key_callback(fan::key_escape, fan::key_state::press, [&]() { window.close(); });
 
-    // F: Toggle FPS
-    window.add_key_callback(fan::key_f, fan::key_state::press, [&]() { grid.show_fps = !grid.show_fps; window.set_name("Conway's Game of Life"); });
+	// F: Toggle FPS
+	window.add_key_callback(fan::key_f, fan::key_state::press, [&]() { grid.show_fps = !grid.show_fps; window.set_name("Conway's Game of Life"); });
 
-    // Space: Toggle simulation
-    window.add_key_callback(fan::key_space, fan::key_state::press, [&]() { grid.toggle_simulation(); });
+	// Space: Toggle simulation
+	window.add_key_callback(fan::key_space, fan::key_state::press, [&]() { grid.toggle_simulation(); });
 
-    // Shift+T+ScrollUp: Evolve or forward to next generation depending on if the generation is already recorded or not. 
-    // Shift+T+ScrollDown: Devolve to earlier generation if it exists
-    window.set_keys_callback([&](uint16_t key, fan::key_state state) {
-        if (window.key_press(fan::key_t) && key == fan::mouse_scroll_up) {
-            grid.evolve();
-        }
-        else if (window.key_press(fan::key_t) && key == fan::mouse_scroll_down) {
-            grid.devolve();
-        }
-        });
+	// Shift+T+ScrollUp: Evolve or forward to next generation depending on if the generation is already recorded or not. 
+	// Shift+T+ScrollDown: Devolve to earlier generation if it exists
+	window.set_keys_callback([&](uint16_t key, fan::key_state state) {
+		if (window.key_press(fan::key_t) && key == fan::mouse_scroll_up) {
+			grid.evolve();
+		}
+		else if (window.key_press(fan::key_t) && key == fan::mouse_scroll_down) {
+			grid.devolve();
+		}
+	});
 
-    int count = 0;
-    window.loop([&] {
-        
-        if (grid.show_fps) window.get_fps();
-        
-        if (grid.paintingLive) grid.set_alive_at_click();
-        if (grid.paintingDead) grid.set_dead_at_click();
-
-        // ugly, but works for now
-        if (count > tickrate && grid.ticking_) {
-            grid.evolve();
-            count = 0; 
-        }
-        else if (grid.ticking_) count++;
-
-        grid.draw();
-    }); 
+    grid.run();
 }

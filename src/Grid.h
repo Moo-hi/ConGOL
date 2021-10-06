@@ -221,6 +221,7 @@ public:
 	cellvec2 cv_to_cv2D(cellvec& cv);
 	cellvec cv2D_to_cv(cellvec2& cv2);
 
+	void run();
 
 	// Proceed a step in evolution according to the game's rules
 	void evolve();

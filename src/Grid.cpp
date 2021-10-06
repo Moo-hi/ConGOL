@@ -1,6 +1,6 @@
-#include "Grid.h"
 #include <cmath>
-
+#include "Grid.h"
+#include "Utils.h"
 // Container
 Grid::Grid() {};
 
@@ -17,12 +17,39 @@ Grid::Grid(fan::camera* camera, int subdivisions) :
 // Initialize from save
 Grid::Grid(fan::camera* camera, CellData cell_data) :
 	rects_(camera) {
-		if (camera->m_window != NULL)
-		{
-			this->camera_ = camera;
-			this->init(1);
-			this->import(cell_data);
+	if (camera->m_window != NULL)
+	{
+		this->camera_ = camera;
+		this->init(1);
+		this->import(cell_data);
+	}
+}
+
+void Grid::run() {
+	// Lower  value = faster simulation
+	int tickrate = 25;
+
+
+	//fan_2d::graphics::gui::text_renderer text(this->camera_); currently unused
+	
+
+	int count = 0;
+	camera_->m_window->loop([&] {
+
+		if (show_fps) camera_->m_window->get_fps();
+
+		if (paintingLive) set_alive_at_click();
+		if (paintingDead) set_dead_at_click();
+
+		// ugly, but works for now
+		if (count > tickrate && ticking_) {
+			evolve();
+			count = 0;
 		}
+		else if (ticking_) count++;
+
+		draw();
+	});
 }
 
 std::vector<Grid::Cell> Grid::get_live_cells() {
