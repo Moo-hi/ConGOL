@@ -1,8 +1,6 @@
 #pragma once
 
-#include <fan/graphics/graphics.hpp>
-#include <fan/graphics/gui.hpp>
-#include <fan/math/random.hpp>
+#include <fan/graphics/gui.h>
 #include <vector>
 #include "Grid.h"
 
@@ -141,20 +139,21 @@ private:
 		CellData(Grid* grid) {
 			cells_ = grid->cells_;
 			map_ = grid->map_;
-			cell_size_ = fan::cast<float>(grid->camera_->m_window->get_size()) / sqrt(cells_.size());
+			cell_size_ = fan::cast<float>(window->get_size()) / sqrt(cells_.size());
 		}
 	};
 
 
 	typedef std::vector<Cell> cellvec;
 	typedef std::vector<std::vector<Cell>> cellvec2;
-
-
-	inline static fan::camera* camera_; // includes window as a member variable
+public:
+	inline static fan::window_t* window;
+	inline static fan::opengl::context_t* context; // includes window as a member variable
+private:
 	//inline static fan_2d::graphics::gui::text_renderer* text_;
 	
-	fan_2d::graphics::rectangle rects_;
-	fan_2d::graphics::rectangle cursor_rects_;
+	fan_2d::graphics::rectangle_t rects_;
+	fan_2d::graphics::rectangle_t cursor_rects_;
 
 	
 
@@ -180,14 +179,14 @@ private:
 
 		int i = translate_mouse_to_gridmap();
 		if (cells_[i].alive) {
-			cursor_rects_.set_color(filler_rect_indice, color_alive_);
+			cursor_rects_.set_color(context, filler_rect_indice, color_alive_);
 		}
 		else if (!cells_[i].alive) {
-			cursor_rects_.set_color(filler_rect_indice, color_dead_);
+			cursor_rects_.set_color(context, filler_rect_indice, color_dead_);
 		}
 
-		cursor_rects_.set_position(bg_rect_indice, map_[i]);
-		cursor_rects_.set_position(filler_rect_indice, map_[i]);
+		cursor_rects_.set_position(context, bg_rect_indice, map_[i]);
+		cursor_rects_.set_position(context, filler_rect_indice, map_[i]);
 	}
 
 public:
@@ -204,8 +203,8 @@ public:
 	fan::color color_dead_ = fan::colors::black;
 	
 	Grid(); // container
-	Grid(fan::camera* camera, int subdivisions); // Initialize from scatch
-	Grid(fan::camera* camera, CellData cell_data); // Initialize from save
+	Grid(fan::window_t* window, fan::opengl::context_t* context, int subdivisions); // Initialize from scatch
+	Grid(fan::window_t* window, fan::opengl::context_t* context, CellData cell_data); // Initialize from save
 
 	// Initializes cell data & -mapping
 	void init(int subdivisions);
