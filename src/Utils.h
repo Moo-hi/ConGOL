@@ -1,5 +1,5 @@
 #pragma once
-#include <fan/graphics/graphics.hpp>
+#include <fan/graphics/graphics.h>
 
 /// <summary>
 /// 
@@ -7,7 +7,7 @@
 /// 
 /// </summary>
 
-static class Utils {
+class Utils {
 public:
     // Floors the given vec2i to a value that is perfectly square
     static inline fan::vec2i FloorToPerfectSquare(fan::vec2i xy) {

@@ -5,24 +5,22 @@
 Grid::Grid() {};
 
 // Initialize from scratch
-Grid::Grid(fan::camera* camera, int subdivisions) :
-	rects_(camera){
-	if (camera->m_window != NULL)
-	{
-		this->camera_ = camera;
-		this->init(subdivisions);
-	}
+Grid::Grid(fan::window_t* window, fan::opengl::context_t* context, int subdivisions) {
+	rects_.open(context);
+	rects_.enable_draw(context);
+	this->context = context;
+	this->window = window;
+	this->init(subdivisions);
 }
 
 // Initialize from save
-Grid::Grid(fan::camera* camera, CellData cell_data) :
-	rects_(camera) {
-	if (camera->m_window != NULL)
-	{
-		this->camera_ = camera;
-		this->init(1);
-		this->import(cell_data);
-	}
+Grid::Grid(fan::window_t* window, fan::opengl::context_t* context, CellData cell_data) {
+	rects_.open(context);
+	rects_.enable_draw(context);
+	this->context = context;
+	this->window = window;
+	this->init(1);
+	this->import(cell_data);
 }
 
 void Grid::run() {
@@ -34,9 +32,16 @@ void Grid::run() {
 	
 
 	int count = 0;
-	camera_->m_window->loop([&] {
 
-		if (show_fps) camera_->m_window->get_fps();
+	while (true) {
+
+		uint32_t window_event = window->handle_events();
+    if(window_event & fan::window_t::events::close){
+      window->close();
+      break;
+    }
+
+		if (show_fps) window->get_fps();
 
 		if (paintingLive) set_alive_at_click();
 		if (paintingDead) set_dead_at_click();
@@ -49,7 +54,11 @@ void Grid::run() {
 		else if (ticking_) count++;
 
 		draw();
-	});
+
+    context->process();
+    context->render(window);
+
+	}
 }
 
 std::vector<Grid::Cell> Grid::get_live_cells() {
@@ -75,14 +84,14 @@ std::vector<Grid::Cell> Grid::get_live_cells(std::vector<Cell> cells) {
 }
 
 void Grid::init(int subdivisions) {
-	if (camera_->m_window != NULL)
+	if (window != NULL)
 	{
 		// Clean previous data, whether it exists or not
 		this->cells_.clear();
 		this->map_.clear();
 
 		// Determine size of a single cell
-		this->cell_size_ = fan::cast<float>(camera_->m_window->get_size()) / subdivisions;
+		this->cell_size_ = fan::cast<float>(window->get_size()) / subdivisions;
 
 		// Fill current grid with dead cells
 		for (size_t i = 0; i < ((long long int)subdivisions * subdivisions); i++)
@@ -107,13 +116,16 @@ void Grid::init(int subdivisions) {
 	}
 	else fan::print("Grid::init Failure: Null window pointer");
 
-	// Initialize cursor elements
-	if (cursor_rects_.m_camera == NULL || cursor_rects_.size() == 0) {
-		cursor_rects_.m_camera = camera_;
-		cursor_rects_.push_back(0, cell_size_, fan::colors::cyan); // selection highlight bg (fake outline)
-		cursor_rects_.push_back(0, cell_size_ * 0.875, color_dead_); // selection highlight filler (completes illusion of outline)
-		cursor_rects_.push_back(camera_->m_window->get_mouse_position(), cell_size_ / 4, fan::colors::white); // cursor rectangle
-	}
+	cursor_rects_.open(context);
+	cursor_rects_.enable_draw(context);
+	fan_2d::graphics::rectangle_t::properties_t p;
+	p.position = 0;
+	p.size = cell_size_ / 2;
+	p.color = fan::colors::cyan;
+	cursor_rects_.push_back(context, p); // selection highlight bg (fake outline)
+	p.size = (cell_size_ * 0.875) / 2;
+	p.color = color_dead_;
+	cursor_rects_.push_back(context, p); // selection highlight filler (completes illusion of outline)
 }
 
 void Grid::import(CellData cell_data) {
@@ -247,7 +259,7 @@ void Grid::devolve() {
 }
 
 uint32_t Grid::translate_mouse_to_gridmap() {  // could use a better; shorter name without sacrificing readability
-	fan::vec2i cell_origin = (camera_->m_window->get_mouse_position() / cell_size_).floored();
+	fan::vec2i cell_origin = (window->get_mouse_position() / cell_size_).floor();
 
 	uint32_t index = cell_origin.y * get_window_divisor() + cell_origin.x;
 
@@ -257,43 +269,37 @@ uint32_t Grid::translate_mouse_to_gridmap() {  // could use a better; shorter na
 void Grid::set_alive_at_click() {
 	int i = translate_mouse_to_gridmap();
 	cells_[i].alive = true;
-	rects_.set_color(1, color_alive_); // a confusing line - updates the highlight filler to match the new state ... refactor away
+	rects_.set_color(context, 1, color_alive_); // a confusing line - updates the highlight filler to match the new state ... refactor away
 	update_cursor_highlight();
 }
 
 void Grid::set_dead_at_click() {
 	int i = translate_mouse_to_gridmap();
 	cells_[i].alive = false;
-	rects_.set_color(1, color_dead_); // a confusing line - updates the highlight filler to match the new state ... refactor away
+	rects_.set_color(context, 1, color_dead_); // a confusing line - updates the highlight filler to match the new state ... refactor away
 	update_cursor_highlight();
 }
 
 // Draw based on object data
 void Grid::draw() {
 	// Initialize grid_ for drawing if uninitialized 
-	if (rects_.size() == 0) { 
-		fan::begin_queue();
+	if (rects_.size(context) == 0) { 
 		for (int i = 0; i < cells_.size(); i++)
 		{
-			rects_.push_back(map_[i], cell_size_, color_dead_);
+			fan_2d::graphics::rectangle_t::properties_t p;
+			p.position = map_[i] - p.size;
+			p.size = cell_size_ / 2;
+			p.color = color_dead_;
+			rects_.push_back(context, p);
 		}
-		fan::end_queue();
-		rects_.release_queue(1, 1, 1, 1, 1);
 	}
 
 	// Determine and set cell color (alive? dead?)
-	fan::begin_queue();
 	for (int i = 0; i < cells_.size(); i++)
 	{
-		if (cells_[i].alive) { rects_.set_color(i, color_alive_); }
-		else { rects_.set_color(i, color_dead_); };// If cell is alive, color - else, leave black (dead)
+		if (cells_[i].alive) { rects_.set_color(context, i, color_alive_); }
+		else { rects_.set_color(context, i, color_dead_); };// If cell is alive, color - else, leave black (dead)
 	}
-	fan::end_queue();
-	rects_.release_queue(1,1,1,1,1);
 
 	update_cursor_highlight();
-
-	// Perform the draw operations
-	rects_.draw();
-	cursor_rects_.draw();
 }

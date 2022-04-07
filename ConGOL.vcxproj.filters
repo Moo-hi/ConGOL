@@ -15,1068 +15,343 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\box2d\collision\b2_broad_phase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_chain_shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_circle_shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_collide_circle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_collide_edge.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_collide_polygon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_distance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_dynamic_tree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_edge_shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_polygon_shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\collision\b2_time_of_impact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\common\b2_block_allocator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\common\b2_draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\common\b2_math.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\common\b2_settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\common\b2_stack_allocator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\common\b2_timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_body.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_chain_circle_contact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_chain_polygon_contact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_circle_contact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_contact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_contact_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_contact_solver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_distance_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_edge_circle_contact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_edge_polygon_contact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_fixture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_friction_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_gear_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_island.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_motor_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_mouse_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_polygon_circle_contact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_polygon_contact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_prismatic_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_pulley_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_revolute_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_weld_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_wheel_joint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_world.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\dynamics\b2_world_callbacks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\box2d\rope\b2_rope.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fan\graphics\window\window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fan\graphics\window\window_input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fan\graphics\camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fan\graphics\graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fan\graphics\gui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\fan\graphics\vulkan\vk_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fan\graphics\shared_graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fan\graphics\shared_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fan\window\window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fan\window\window_input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\AL\al.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\AL\alc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\AL\efx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\AL\efx-creative.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\AL\EFX-Util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\AL\xram.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Compiler\poppack1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Compiler\pstdint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Compiler\pushpack1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\port\AndroidJNI\AndroidJNIIOSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\aabb.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\ai_assert.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\anim.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\BaseImporter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Bitmap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\BlobIOSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\ByteSwapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\cexport.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\cfileio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\cimport.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\color4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\CreateAnimMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\DefaultIOStream.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\DefaultIOSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\DefaultLogger.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Defines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\defs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Exceptional.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Exporter.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\fast_atof.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\GenericProperty.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Hash.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Importer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\importerdesc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\IOStream.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\IOStreamBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\IOSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\irrXMLWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\LineSplitter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\LogAux.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Logger.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\LogStream.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Macros.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\MathFunctions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\matrix3x3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\matrix4x4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\MemoryIOWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\metadata.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\NullLogger.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\ParsingUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\pbrmaterial.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\postprocess.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Profiler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\ProgressHandler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\qnan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\quaternion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\RemoveComments.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\SceneCombiner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\SGSpatialSort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\SkeletonMeshBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\SmoothingGroups.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\SpatialSort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\StandardShapes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\StreamReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\StreamWriter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\StringComparison.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\StringUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Subdivision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\TinyFormatter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\vector2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\vector3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\XMLTools.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\assimp\ZipArchiveIOSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_api.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_block_allocator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_body.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_broad_phase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_chain_shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_circle_shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_contact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_contact_manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_distance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_distance_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_draw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_dynamic_tree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_edge_shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_fixture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_friction_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_gear_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_growable_stack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_math.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_motor_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_mouse_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_polygon_shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_prismatic_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_pulley_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_revolute_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_rope.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_stack_allocator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_time_of_impact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_time_step.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_weld_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_wheel_joint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_world.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\b2_world_callbacks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\box2d\box2d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\audio\audio.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\engine\graphics\graphics.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\fast_noise\fast_noise.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\fbsp\rectangle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\graphics\window\window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\graphics\window\window_input.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\graphics\base.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\graphics\camera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\graphics\graphics.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\graphics\gui.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\graphics\image.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\graphics\shader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\graphics\themes.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\io\file.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\math\math.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\math\random.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\network\network.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\physics\collision\circle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\physics\collision\rectangle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\physics\collision\triangle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\physics\raycast\rectangle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\physics\physics.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\time\time.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\types\color.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\types\da.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\types\list.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\types\matrix.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\types\quaternion.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\types\types.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fan\types\vector.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GL\eglew.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GL\glew.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GL\glxew.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GL\wglew.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\ac3_parser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\adts_parser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\avcodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\avdct.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\avfft.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\bsf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\codec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\codec_desc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\codec_id.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\codec_par.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\d3d11va.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\dirac.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\dv_profile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\dxva2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\jni.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\mediacodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\packet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\qsv.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\vaapi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\vdpau.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\videotoolbox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\vorbis_parser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavcodec\xvmc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavdevice\avdevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavdevice\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavfilter\avfilter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavfilter\buffersink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavfilter\buffersrc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavfilter\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavformat\avformat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavformat\avio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavformat\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\adler32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\aes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\aes_ctr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\attributes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\audio_fifo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\avassert.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\avconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\avstring.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\avutil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\base64.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\blowfish.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\bprint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\bswap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\camellia.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\cast5.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\channel_layout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\cpu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\crc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\des.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\dict.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\display.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\dovi_meta.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\downmix_info.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\encryption_info.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\error.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\eval.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\ffversion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\fifo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\file.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\frame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hash.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hdr_dynamic_metadata.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hmac.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_cuda.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_d3d11va.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_drm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_dxva2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_mediacodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_opencl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_qsv.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_vaapi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_vdpau.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_videotoolbox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\hwcontext_vulkan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\imgutils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\intfloat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\intreadwrite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\lfg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\lzo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\macros.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\mastering_display_metadata.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\mathematics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\md5.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\mem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\motion_vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\murmur3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\opt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\parseutils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\pixdesc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\pixelutils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\pixfmt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\random_seed.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\rational.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\rc4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\replaygain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\ripemd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\samplefmt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\sha.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\sha512.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\spherical.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\stereo3d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\tea.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\threadmessage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\time.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\timecode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\timestamp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\tree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\twofish.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\tx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\video_enc_params.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libavutil\xtea.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libpostproc\postprocess.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libpostproc\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libswresample\swresample.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libswresample\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libswscale\swscale.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libswscale\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\box2d\dynamics\b2_chain_circle_contact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\box2d\dynamics\b2_chain_polygon_contact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\box2d\dynamics\b2_circle_contact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\box2d\dynamics\b2_contact_solver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\box2d\dynamics\b2_edge_circle_contact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\box2d\dynamics\b2_edge_polygon_contact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\box2d\dynamics\b2_island.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\box2d\dynamics\b2_polygon_circle_contact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\box2d\dynamics\b2_polygon_contact.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="include\assimp\color4.inl">
+    <ClInclude Include="include\fan\audio\audio.h">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="include\assimp\material.inl">
+    </ClInclude>
+    <ClInclude Include="include\fan\audio\miniaudio.h">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="include\assimp\matrix3x3.inl">
+    </ClInclude>
+    <ClInclude Include="include\fan\BLL\internal\basic_types.h">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="include\assimp\matrix4x4.inl">
+    </ClInclude>
+    <ClInclude Include="include\fan\BLL\internal\rest.h">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="include\assimp\quaternion.inl">
+    </ClInclude>
+    <ClInclude Include="include\fan\BLL\BLL.h">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="include\assimp\SmoothingGroups.inl">
+    </ClInclude>
+    <ClInclude Include="include\fan\engine\engine.h">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="include\assimp\vector2.inl">
+    </ClInclude>
+    <ClInclude Include="include\fan\fed\internal\private.h">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="include\assimp\vector3.inl">
+    </ClInclude>
+    <ClInclude Include="include\fan\fed\internal\public.h">
       <Filter>Header Files</Filter>
-    </None>
+    </ClInclude>
+    <ClInclude Include="include\fan\fed\internal\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\fed\FED.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\fed\WED.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\fast_obj\fast_obj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\be.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\button_event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\checkbox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\focus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\key_event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\rectangle_box_sized.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\rectangle_button_sized.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\rectangle_text_box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\rectangle_text_box_sized.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\rectangle_text_button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\rectangle_text_button_sized.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\select_box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\sprite_button_sized.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\text_renderer_clickable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\themes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\effects\flame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\effects\particles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\gui\text_renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\gui\text_renderer_raw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\gui\text_renderer_wrap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\gui\text_renderer0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\depth\depth_rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\depth\depth_sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\sprite0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\yuv420p_renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\3D\objects\model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\3D\objects\skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\gl_core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\gl_defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\gl_graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\gl_gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\gl_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\gl_init.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\gl_shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\opengl\gl_texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\physics\collision\circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\physics\collision\rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\physics\collision\triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\physics\raycast\rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\physics\physics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vpx\tools_common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vpx\video_common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vpx\video_reader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vpx\y4minput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vulkan\vk_core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vulkan\vk_descriptor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vulkan\vk_graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vulkan\vk_gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vulkan\vk_pipeline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\vulkan\vk_shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\shared_core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\shared_graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\shared_gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\shared_inline_graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\video_decoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\graphics\webp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\io\file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\io\io.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\math\math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\math\random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\network\network.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\physics\collision\circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\physics\collision\rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\physics\collision\triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\physics\raycast\rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\physics\physics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\time\time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\types\color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\types\matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\types\memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\types\quaternion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\types\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\types\utf_string.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\types\vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\window\window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\window\window_input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\bll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\utf_string.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fan\vulkan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

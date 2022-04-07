@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -86,12 +86,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src\box2d;$(SolutionDir)include\box2d;$(SolutionDir);$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\box2d;$(SolutionDir);$(SolutionDir)include;$(SolutionDir)src\libwebp\src;$(SolutionDir)src\libwebp;$(SolutionDir)include\opus;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <Optimization>Disabled</Optimization>
-      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
@@ -111,11 +111,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src\box2d;$(SolutionDir)include\box2d;$(SolutionDir);$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\box2d;$(SolutionDir);$(SolutionDir)include;$(SolutionDir)src\libwebp\src;$(SolutionDir)src\libwebp;$(SolutionDir)include\opus;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
@@ -134,12 +134,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src\box2d;$(SolutionDir)include\box2d;$(SolutionDir);$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\box2d;$(SolutionDir);$(SolutionDir)include;$(SolutionDir)src\libwebp\src;$(SolutionDir)src\libwebp;$(SolutionDir)include\opus;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <Optimization>Disabled</Optimization>
-      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
@@ -158,11 +158,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)src\box2d;$(SolutionDir)include\box2d;$(SolutionDir);$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\box2d;$(SolutionDir);$(SolutionDir)include;$(SolutionDir)src\libwebp\src;$(SolutionDir)src\libwebp;$(SolutionDir)include\opus;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
@@ -178,363 +178,120 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\fan\graphics\shared_graphics.cpp" />
+    <ClCompile Include="src\fan\graphics\shared_gui.cpp" />
+    <ClCompile Include="src\fan\graphics\vulkan\vk_gui.cpp" />
+    <ClCompile Include="src\fan\window\window.cpp" />
+    <ClCompile Include="src\fan\window\window_input.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_broad_phase.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_chain_shape.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_circle_shape.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_collide_circle.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_collide_edge.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_collide_polygon.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_collision.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_distance.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_dynamic_tree.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_edge_shape.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_polygon_shape.cpp" />
-    <ClCompile Include="src\box2d\collision\b2_time_of_impact.cpp" />
-    <ClCompile Include="src\box2d\common\b2_block_allocator.cpp" />
-    <ClCompile Include="src\box2d\common\b2_draw.cpp" />
-    <ClCompile Include="src\box2d\common\b2_math.cpp" />
-    <ClCompile Include="src\box2d\common\b2_settings.cpp" />
-    <ClCompile Include="src\box2d\common\b2_stack_allocator.cpp" />
-    <ClCompile Include="src\box2d\common\b2_timer.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_body.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_chain_circle_contact.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_chain_polygon_contact.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_circle_contact.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_contact.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_contact_manager.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_contact_solver.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_distance_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_edge_circle_contact.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_edge_polygon_contact.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_fixture.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_friction_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_gear_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_island.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_motor_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_mouse_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_polygon_circle_contact.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_polygon_contact.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_prismatic_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_pulley_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_revolute_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_weld_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_wheel_joint.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_world.cpp" />
-    <ClCompile Include="src\box2d\dynamics\b2_world_callbacks.cpp" />
-    <ClCompile Include="src\box2d\rope\b2_rope.cpp" />
-    <ClCompile Include="src\fan\graphics\camera.cpp" />
-    <ClCompile Include="src\fan\graphics\graphics.cpp" />
-    <ClCompile Include="src\fan\graphics\gui.cpp" />
-    <ClCompile Include="src\fan\graphics\window\window.cpp" />
-    <ClCompile Include="src\fan\graphics\window\window_input.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\fan\audio\audio.h" />
+    <ClInclude Include="include\fan\audio\miniaudio.h" />
+    <ClInclude Include="include\fan\bll.h" />
+    <ClInclude Include="include\fan\BLL\BLL.h" />
+    <ClInclude Include="include\fan\BLL\internal\basic_types.h" />
+    <ClInclude Include="include\fan\BLL\internal\rest.h" />
+    <ClInclude Include="include\fan\engine\engine.h" />
+    <ClInclude Include="include\fan\fed\FED.h" />
+    <ClInclude Include="include\fan\fed\internal\private.h" />
+    <ClInclude Include="include\fan\fed\internal\public.h" />
+    <ClInclude Include="include\fan\fed\internal\types.h" />
+    <ClInclude Include="include\fan\fed\WED.h" />
+    <ClInclude Include="include\fan\font.h" />
+    <ClInclude Include="include\fan\graphics\camera.h" />
+    <ClInclude Include="include\fan\graphics\fast_obj\fast_obj.h" />
+    <ClInclude Include="include\fan\graphics\graphics.h" />
+    <ClInclude Include="include\fan\graphics\gui.h" />
+    <ClInclude Include="include\fan\graphics\gui\be.h" />
+    <ClInclude Include="include\fan\graphics\gui\button_event.h" />
+    <ClInclude Include="include\fan\graphics\gui\checkbox.h" />
+    <ClInclude Include="include\fan\graphics\gui\focus.h" />
+    <ClInclude Include="include\fan\graphics\gui\key_event.h" />
+    <ClInclude Include="include\fan\graphics\gui\rectangle_box_sized.h" />
+    <ClInclude Include="include\fan\graphics\gui\rectangle_button_sized.h" />
+    <ClInclude Include="include\fan\graphics\gui\rectangle_text_box.h" />
+    <ClInclude Include="include\fan\graphics\gui\rectangle_text_box_sized.h" />
+    <ClInclude Include="include\fan\graphics\gui\rectangle_text_button.h" />
+    <ClInclude Include="include\fan\graphics\gui\rectangle_text_button_sized.h" />
+    <ClInclude Include="include\fan\graphics\gui\select_box.h" />
+    <ClInclude Include="include\fan\graphics\gui\sprite_button_sized.h" />
+    <ClInclude Include="include\fan\graphics\gui\text_renderer_clickable.h" />
+    <ClInclude Include="include\fan\graphics\gui\themes.h" />
+    <ClInclude Include="include\fan\graphics\gui\types.h" />
+    <ClInclude Include="include\fan\graphics\light.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\effects\flame.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\effects\particles.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\gui\text_renderer.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\gui\text_renderer0.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\gui\text_renderer_raw.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\gui\text_renderer_wrap.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\circle.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\depth\depth_rectangle.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\depth\depth_sprite.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\line.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\rectangle.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\sprite.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\sprite0.h" />
+    <ClInclude Include="include\fan\graphics\opengl\2D\objects\yuv420p_renderer.h" />
+    <ClInclude Include="include\fan\graphics\opengl\3D\objects\model.h" />
+    <ClInclude Include="include\fan\graphics\opengl\3D\objects\skybox.h" />
+    <ClInclude Include="include\fan\graphics\opengl\gl_core.h" />
+    <ClInclude Include="include\fan\graphics\opengl\gl_defines.h" />
+    <ClInclude Include="include\fan\graphics\opengl\gl_graphics.h" />
+    <ClInclude Include="include\fan\graphics\opengl\gl_gui.h" />
+    <ClInclude Include="include\fan\graphics\opengl\gl_image.h" />
+    <ClInclude Include="include\fan\graphics\opengl\gl_init.h" />
+    <ClInclude Include="include\fan\graphics\opengl\gl_shader.h" />
+    <ClInclude Include="include\fan\graphics\opengl\gl_texture.h" />
+    <ClInclude Include="include\fan\graphics\physics\collision\circle.h" />
+    <ClInclude Include="include\fan\graphics\physics\collision\rectangle.h" />
+    <ClInclude Include="include\fan\graphics\physics\collision\triangle.h" />
+    <ClInclude Include="include\fan\graphics\physics\physics.h" />
+    <ClInclude Include="include\fan\graphics\physics\raycast\rectangle.h" />
+    <ClInclude Include="include\fan\graphics\renderer.h" />
+    <ClInclude Include="include\fan\graphics\shared_core.h" />
+    <ClInclude Include="include\fan\graphics\shared_graphics.h" />
+    <ClInclude Include="include\fan\graphics\shared_gui.h" />
+    <ClInclude Include="include\fan\graphics\shared_inline_graphics.h" />
+    <ClInclude Include="include\fan\graphics\video_decoder.h" />
+    <ClInclude Include="include\fan\graphics\vpx\tools_common.h" />
+    <ClInclude Include="include\fan\graphics\vpx\video_common.h" />
+    <ClInclude Include="include\fan\graphics\vpx\video_reader.h" />
+    <ClInclude Include="include\fan\graphics\vpx\y4minput.h" />
+    <ClInclude Include="include\fan\graphics\vulkan\vk_core.h" />
+    <ClInclude Include="include\fan\graphics\vulkan\vk_descriptor.h" />
+    <ClInclude Include="include\fan\graphics\vulkan\vk_graphics.h" />
+    <ClInclude Include="include\fan\graphics\vulkan\vk_gui.h" />
+    <ClInclude Include="include\fan\graphics\vulkan\vk_pipeline.h" />
+    <ClInclude Include="include\fan\graphics\vulkan\vk_shader.h" />
+    <ClInclude Include="include\fan\graphics\webp.h" />
+    <ClInclude Include="include\fan\io\file.h" />
+    <ClInclude Include="include\fan\io\io.h" />
+    <ClInclude Include="include\fan\math\math.h" />
+    <ClInclude Include="include\fan\math\random.h" />
+    <ClInclude Include="include\fan\network\network.h" />
+    <ClInclude Include="include\fan\physics\collision\circle.h" />
+    <ClInclude Include="include\fan\physics\collision\rectangle.h" />
+    <ClInclude Include="include\fan\physics\collision\triangle.h" />
+    <ClInclude Include="include\fan\physics\physics.h" />
+    <ClInclude Include="include\fan\physics\raycast\rectangle.h" />
+    <ClInclude Include="include\fan\system.h" />
+    <ClInclude Include="include\fan\time\time.h" />
+    <ClInclude Include="include\fan\types\color.h" />
+    <ClInclude Include="include\fan\types\matrix.h" />
+    <ClInclude Include="include\fan\types\memory.h" />
+    <ClInclude Include="include\fan\types\quaternion.h" />
+    <ClInclude Include="include\fan\types\types.h" />
+    <ClInclude Include="include\fan\types\utf_string.h" />
+    <ClInclude Include="include\fan\types\vector.h" />
+    <ClInclude Include="include\fan\utf_string.h" />
+    <ClInclude Include="include\fan\vulkan.h" />
+    <ClInclude Include="include\fan\window\window.h" />
+    <ClInclude Include="include\fan\window\window_input.h" />
     <ClInclude Include="src\Grid.h" />
-    <ClInclude Include="include\AL\al.h" />
-    <ClInclude Include="include\AL\alc.h" />
-    <ClInclude Include="include\AL\efx-creative.h" />
-    <ClInclude Include="include\AL\EFX-Util.h" />
-    <ClInclude Include="include\AL\efx.h" />
-    <ClInclude Include="include\AL\xram.h" />
-    <ClInclude Include="include\assimp\aabb.h" />
-    <ClInclude Include="include\assimp\ai_assert.h" />
-    <ClInclude Include="include\assimp\anim.h" />
-    <ClInclude Include="include\assimp\BaseImporter.h" />
-    <ClInclude Include="include\assimp\Bitmap.h" />
-    <ClInclude Include="include\assimp\BlobIOSystem.h" />
-    <ClInclude Include="include\assimp\ByteSwapper.h" />
-    <ClInclude Include="include\assimp\camera.h" />
-    <ClInclude Include="include\assimp\cexport.h" />
-    <ClInclude Include="include\assimp\cfileio.h" />
-    <ClInclude Include="include\assimp\cimport.h" />
-    <ClInclude Include="include\assimp\color4.h" />
-    <ClInclude Include="include\assimp\Compiler\poppack1.h" />
-    <ClInclude Include="include\assimp\Compiler\pstdint.h" />
-    <ClInclude Include="include\assimp\Compiler\pushpack1.h" />
-    <ClInclude Include="include\assimp\config.h" />
-    <ClInclude Include="include\assimp\CreateAnimMesh.h" />
-    <ClInclude Include="include\assimp\DefaultIOStream.h" />
-    <ClInclude Include="include\assimp\DefaultIOSystem.h" />
-    <ClInclude Include="include\assimp\DefaultLogger.hpp" />
-    <ClInclude Include="include\assimp\Defines.h" />
-    <ClInclude Include="include\assimp\defs.h" />
-    <ClInclude Include="include\assimp\Exceptional.h" />
-    <ClInclude Include="include\assimp\Exporter.hpp" />
-    <ClInclude Include="include\assimp\fast_atof.h" />
-    <ClInclude Include="include\assimp\GenericProperty.h" />
-    <ClInclude Include="include\assimp\Hash.h" />
-    <ClInclude Include="include\assimp\Importer.hpp" />
-    <ClInclude Include="include\assimp\importerdesc.h" />
-    <ClInclude Include="include\assimp\IOStream.hpp" />
-    <ClInclude Include="include\assimp\IOStreamBuffer.h" />
-    <ClInclude Include="include\assimp\IOSystem.hpp" />
-    <ClInclude Include="include\assimp\irrXMLWrapper.h" />
-    <ClInclude Include="include\assimp\light.h" />
-    <ClInclude Include="include\assimp\LineSplitter.h" />
-    <ClInclude Include="include\assimp\LogAux.h" />
-    <ClInclude Include="include\assimp\Logger.hpp" />
-    <ClInclude Include="include\assimp\LogStream.hpp" />
-    <ClInclude Include="include\assimp\Macros.h" />
-    <ClInclude Include="include\assimp\material.h" />
-    <ClInclude Include="include\assimp\MathFunctions.h" />
-    <ClInclude Include="include\assimp\matrix3x3.h" />
-    <ClInclude Include="include\assimp\matrix4x4.h" />
-    <ClInclude Include="include\assimp\MemoryIOWrapper.h" />
-    <ClInclude Include="include\assimp\mesh.h" />
-    <ClInclude Include="include\assimp\metadata.h" />
-    <ClInclude Include="include\assimp\NullLogger.hpp" />
-    <ClInclude Include="include\assimp\ParsingUtils.h" />
-    <ClInclude Include="include\assimp\pbrmaterial.h" />
-    <ClInclude Include="include\assimp\port\AndroidJNI\AndroidJNIIOSystem.h" />
-    <ClInclude Include="include\assimp\postprocess.h" />
-    <ClInclude Include="include\assimp\Profiler.h" />
-    <ClInclude Include="include\assimp\ProgressHandler.hpp" />
-    <ClInclude Include="include\assimp\qnan.h" />
-    <ClInclude Include="include\assimp\quaternion.h" />
-    <ClInclude Include="include\assimp\RemoveComments.h" />
-    <ClInclude Include="include\assimp\scene.h" />
-    <ClInclude Include="include\assimp\SceneCombiner.h" />
-    <ClInclude Include="include\assimp\SGSpatialSort.h" />
-    <ClInclude Include="include\assimp\SkeletonMeshBuilder.h" />
-    <ClInclude Include="include\assimp\SmoothingGroups.h" />
-    <ClInclude Include="include\assimp\SpatialSort.h" />
-    <ClInclude Include="include\assimp\StandardShapes.h" />
-    <ClInclude Include="include\assimp\StreamReader.h" />
-    <ClInclude Include="include\assimp\StreamWriter.h" />
-    <ClInclude Include="include\assimp\StringComparison.h" />
-    <ClInclude Include="include\assimp\StringUtils.h" />
-    <ClInclude Include="include\assimp\Subdivision.h" />
-    <ClInclude Include="include\assimp\texture.h" />
-    <ClInclude Include="include\assimp\TinyFormatter.h" />
-    <ClInclude Include="include\assimp\types.h" />
-    <ClInclude Include="include\assimp\vector2.h" />
-    <ClInclude Include="include\assimp\vector3.h" />
-    <ClInclude Include="include\assimp\version.h" />
-    <ClInclude Include="include\assimp\Vertex.h" />
-    <ClInclude Include="include\assimp\XMLTools.h" />
-    <ClInclude Include="include\assimp\ZipArchiveIOSystem.h" />
-    <ClInclude Include="include\box2d\b2_api.h" />
-    <ClInclude Include="include\box2d\b2_block_allocator.h" />
-    <ClInclude Include="include\box2d\b2_body.h" />
-    <ClInclude Include="include\box2d\b2_broad_phase.h" />
-    <ClInclude Include="include\box2d\b2_chain_shape.h" />
-    <ClInclude Include="include\box2d\b2_circle_shape.h" />
-    <ClInclude Include="include\box2d\b2_collision.h" />
-    <ClInclude Include="include\box2d\b2_common.h" />
-    <ClInclude Include="include\box2d\b2_contact.h" />
-    <ClInclude Include="include\box2d\b2_contact_manager.h" />
-    <ClInclude Include="include\box2d\b2_distance.h" />
-    <ClInclude Include="include\box2d\b2_distance_joint.h" />
-    <ClInclude Include="include\box2d\b2_draw.h" />
-    <ClInclude Include="include\box2d\b2_dynamic_tree.h" />
-    <ClInclude Include="include\box2d\b2_edge_shape.h" />
-    <ClInclude Include="include\box2d\b2_fixture.h" />
-    <ClInclude Include="include\box2d\b2_friction_joint.h" />
-    <ClInclude Include="include\box2d\b2_gear_joint.h" />
-    <ClInclude Include="include\box2d\b2_growable_stack.h" />
-    <ClInclude Include="include\box2d\b2_joint.h" />
-    <ClInclude Include="include\box2d\b2_math.h" />
-    <ClInclude Include="include\box2d\b2_motor_joint.h" />
-    <ClInclude Include="include\box2d\b2_mouse_joint.h" />
-    <ClInclude Include="include\box2d\b2_polygon_shape.h" />
-    <ClInclude Include="include\box2d\b2_prismatic_joint.h" />
-    <ClInclude Include="include\box2d\b2_pulley_joint.h" />
-    <ClInclude Include="include\box2d\b2_revolute_joint.h" />
-    <ClInclude Include="include\box2d\b2_rope.h" />
-    <ClInclude Include="include\box2d\b2_settings.h" />
-    <ClInclude Include="include\box2d\b2_shape.h" />
-    <ClInclude Include="include\box2d\b2_stack_allocator.h" />
-    <ClInclude Include="include\box2d\b2_timer.h" />
-    <ClInclude Include="include\box2d\b2_time_of_impact.h" />
-    <ClInclude Include="include\box2d\b2_time_step.h" />
-    <ClInclude Include="include\box2d\b2_types.h" />
-    <ClInclude Include="include\box2d\b2_weld_joint.h" />
-    <ClInclude Include="include\box2d\b2_wheel_joint.h" />
-    <ClInclude Include="include\box2d\b2_world.h" />
-    <ClInclude Include="include\box2d\b2_world_callbacks.h" />
-    <ClInclude Include="include\box2d\box2d.h" />
-    <ClInclude Include="include\fan\audio\audio.hpp" />
-    <ClInclude Include="include\fan\engine\graphics\graphics.hpp" />
-    <ClInclude Include="include\fan\fast_noise\fast_noise.hpp" />
-    <ClInclude Include="include\fan\fbsp\rectangle.hpp" />
-    <ClInclude Include="include\fan\graphics\base.hpp" />
-    <ClInclude Include="include\fan\graphics\camera.hpp" />
-    <ClInclude Include="include\fan\graphics\graphics.hpp" />
-    <ClInclude Include="include\fan\graphics\gui.hpp" />
-    <ClInclude Include="include\fan\graphics\image.hpp" />
-    <ClInclude Include="include\fan\graphics\shader.hpp" />
-    <ClInclude Include="include\fan\graphics\themes.hpp" />
-    <ClInclude Include="include\fan\graphics\window\window.hpp" />
-    <ClInclude Include="include\fan\graphics\window\window_input.hpp" />
-    <ClInclude Include="include\fan\io\file.hpp" />
-    <ClInclude Include="include\fan\math\math.hpp" />
-    <ClInclude Include="include\fan\math\random.hpp" />
-    <ClInclude Include="include\fan\network\network.hpp" />
-    <ClInclude Include="include\fan\physics\collision\circle.hpp" />
-    <ClInclude Include="include\fan\physics\collision\rectangle.hpp" />
-    <ClInclude Include="include\fan\physics\collision\triangle.hpp" />
-    <ClInclude Include="include\fan\physics\physics.hpp" />
-    <ClInclude Include="include\fan\physics\raycast\rectangle.hpp" />
-    <ClInclude Include="include\fan\time\time.hpp" />
-    <ClInclude Include="include\fan\types\color.hpp" />
-    <ClInclude Include="include\fan\types\da.hpp" />
-    <ClInclude Include="include\fan\types\list.hpp" />
-    <ClInclude Include="include\fan\types\matrix.hpp" />
-    <ClInclude Include="include\fan\types\quaternion.hpp" />
-    <ClInclude Include="include\fan\types\types.hpp" />
-    <ClInclude Include="include\fan\types\vector.hpp" />
-    <ClInclude Include="include\GL\eglew.h" />
-    <ClInclude Include="include\GL\glew.h" />
-    <ClInclude Include="include\GL\glxew.h" />
-    <ClInclude Include="include\GL\wglew.h" />
-    <ClInclude Include="include\libavcodec\ac3_parser.h" />
-    <ClInclude Include="include\libavcodec\adts_parser.h" />
-    <ClInclude Include="include\libavcodec\avcodec.h" />
-    <ClInclude Include="include\libavcodec\avdct.h" />
-    <ClInclude Include="include\libavcodec\avfft.h" />
-    <ClInclude Include="include\libavcodec\bsf.h" />
-    <ClInclude Include="include\libavcodec\codec.h" />
-    <ClInclude Include="include\libavcodec\codec_desc.h" />
-    <ClInclude Include="include\libavcodec\codec_id.h" />
-    <ClInclude Include="include\libavcodec\codec_par.h" />
-    <ClInclude Include="include\libavcodec\d3d11va.h" />
-    <ClInclude Include="include\libavcodec\dirac.h" />
-    <ClInclude Include="include\libavcodec\dv_profile.h" />
-    <ClInclude Include="include\libavcodec\dxva2.h" />
-    <ClInclude Include="include\libavcodec\jni.h" />
-    <ClInclude Include="include\libavcodec\mediacodec.h" />
-    <ClInclude Include="include\libavcodec\packet.h" />
-    <ClInclude Include="include\libavcodec\qsv.h" />
-    <ClInclude Include="include\libavcodec\vaapi.h" />
-    <ClInclude Include="include\libavcodec\vdpau.h" />
-    <ClInclude Include="include\libavcodec\version.h" />
-    <ClInclude Include="include\libavcodec\videotoolbox.h" />
-    <ClInclude Include="include\libavcodec\vorbis_parser.h" />
-    <ClInclude Include="include\libavcodec\xvmc.h" />
-    <ClInclude Include="include\libavdevice\avdevice.h" />
-    <ClInclude Include="include\libavdevice\version.h" />
-    <ClInclude Include="include\libavfilter\avfilter.h" />
-    <ClInclude Include="include\libavfilter\buffersink.h" />
-    <ClInclude Include="include\libavfilter\buffersrc.h" />
-    <ClInclude Include="include\libavfilter\version.h" />
-    <ClInclude Include="include\libavformat\avformat.h" />
-    <ClInclude Include="include\libavformat\avio.h" />
-    <ClInclude Include="include\libavformat\version.h" />
-    <ClInclude Include="include\libavutil\adler32.h" />
-    <ClInclude Include="include\libavutil\aes.h" />
-    <ClInclude Include="include\libavutil\aes_ctr.h" />
-    <ClInclude Include="include\libavutil\attributes.h" />
-    <ClInclude Include="include\libavutil\audio_fifo.h" />
-    <ClInclude Include="include\libavutil\avassert.h" />
-    <ClInclude Include="include\libavutil\avconfig.h" />
-    <ClInclude Include="include\libavutil\avstring.h" />
-    <ClInclude Include="include\libavutil\avutil.h" />
-    <ClInclude Include="include\libavutil\base64.h" />
-    <ClInclude Include="include\libavutil\blowfish.h" />
-    <ClInclude Include="include\libavutil\bprint.h" />
-    <ClInclude Include="include\libavutil\bswap.h" />
-    <ClInclude Include="include\libavutil\buffer.h" />
-    <ClInclude Include="include\libavutil\camellia.h" />
-    <ClInclude Include="include\libavutil\cast5.h" />
-    <ClInclude Include="include\libavutil\channel_layout.h" />
-    <ClInclude Include="include\libavutil\common.h" />
-    <ClInclude Include="include\libavutil\cpu.h" />
-    <ClInclude Include="include\libavutil\crc.h" />
-    <ClInclude Include="include\libavutil\des.h" />
-    <ClInclude Include="include\libavutil\dict.h" />
-    <ClInclude Include="include\libavutil\display.h" />
-    <ClInclude Include="include\libavutil\dovi_meta.h" />
-    <ClInclude Include="include\libavutil\downmix_info.h" />
-    <ClInclude Include="include\libavutil\encryption_info.h" />
-    <ClInclude Include="include\libavutil\error.h" />
-    <ClInclude Include="include\libavutil\eval.h" />
-    <ClInclude Include="include\libavutil\ffversion.h" />
-    <ClInclude Include="include\libavutil\fifo.h" />
-    <ClInclude Include="include\libavutil\file.h" />
-    <ClInclude Include="include\libavutil\frame.h" />
-    <ClInclude Include="include\libavutil\hash.h" />
-    <ClInclude Include="include\libavutil\hdr_dynamic_metadata.h" />
-    <ClInclude Include="include\libavutil\hmac.h" />
-    <ClInclude Include="include\libavutil\hwcontext.h" />
-    <ClInclude Include="include\libavutil\hwcontext_cuda.h" />
-    <ClInclude Include="include\libavutil\hwcontext_d3d11va.h" />
-    <ClInclude Include="include\libavutil\hwcontext_drm.h" />
-    <ClInclude Include="include\libavutil\hwcontext_dxva2.h" />
-    <ClInclude Include="include\libavutil\hwcontext_mediacodec.h" />
-    <ClInclude Include="include\libavutil\hwcontext_opencl.h" />
-    <ClInclude Include="include\libavutil\hwcontext_qsv.h" />
-    <ClInclude Include="include\libavutil\hwcontext_vaapi.h" />
-    <ClInclude Include="include\libavutil\hwcontext_vdpau.h" />
-    <ClInclude Include="include\libavutil\hwcontext_videotoolbox.h" />
-    <ClInclude Include="include\libavutil\hwcontext_vulkan.h" />
-    <ClInclude Include="include\libavutil\imgutils.h" />
-    <ClInclude Include="include\libavutil\intfloat.h" />
-    <ClInclude Include="include\libavutil\intreadwrite.h" />
-    <ClInclude Include="include\libavutil\lfg.h" />
-    <ClInclude Include="include\libavutil\log.h" />
-    <ClInclude Include="include\libavutil\lzo.h" />
-    <ClInclude Include="include\libavutil\macros.h" />
-    <ClInclude Include="include\libavutil\mastering_display_metadata.h" />
-    <ClInclude Include="include\libavutil\mathematics.h" />
-    <ClInclude Include="include\libavutil\md5.h" />
-    <ClInclude Include="include\libavutil\mem.h" />
-    <ClInclude Include="include\libavutil\motion_vector.h" />
-    <ClInclude Include="include\libavutil\murmur3.h" />
-    <ClInclude Include="include\libavutil\opt.h" />
-    <ClInclude Include="include\libavutil\parseutils.h" />
-    <ClInclude Include="include\libavutil\pixdesc.h" />
-    <ClInclude Include="include\libavutil\pixelutils.h" />
-    <ClInclude Include="include\libavutil\pixfmt.h" />
-    <ClInclude Include="include\libavutil\random_seed.h" />
-    <ClInclude Include="include\libavutil\rational.h" />
-    <ClInclude Include="include\libavutil\rc4.h" />
-    <ClInclude Include="include\libavutil\replaygain.h" />
-    <ClInclude Include="include\libavutil\ripemd.h" />
-    <ClInclude Include="include\libavutil\samplefmt.h" />
-    <ClInclude Include="include\libavutil\sha.h" />
-    <ClInclude Include="include\libavutil\sha512.h" />
-    <ClInclude Include="include\libavutil\spherical.h" />
-    <ClInclude Include="include\libavutil\stereo3d.h" />
-    <ClInclude Include="include\libavutil\tea.h" />
-    <ClInclude Include="include\libavutil\threadmessage.h" />
-    <ClInclude Include="include\libavutil\time.h" />
-    <ClInclude Include="include\libavutil\timecode.h" />
-    <ClInclude Include="include\libavutil\timestamp.h" />
-    <ClInclude Include="include\libavutil\tree.h" />
-    <ClInclude Include="include\libavutil\twofish.h" />
-    <ClInclude Include="include\libavutil\tx.h" />
-    <ClInclude Include="include\libavutil\version.h" />
-    <ClInclude Include="include\libavutil\video_enc_params.h" />
-    <ClInclude Include="include\libavutil\xtea.h" />
-    <ClInclude Include="include\libpostproc\postprocess.h" />
-    <ClInclude Include="include\libpostproc\version.h" />
-    <ClInclude Include="include\libswresample\swresample.h" />
-    <ClInclude Include="include\libswresample\version.h" />
-    <ClInclude Include="include\libswscale\swscale.h" />
-    <ClInclude Include="include\libswscale\version.h" />
-    <ClInclude Include="src\box2d\dynamics\b2_chain_circle_contact.h" />
-    <ClInclude Include="src\box2d\dynamics\b2_chain_polygon_contact.h" />
-    <ClInclude Include="src\box2d\dynamics\b2_circle_contact.h" />
-    <ClInclude Include="src\box2d\dynamics\b2_contact_solver.h" />
-    <ClInclude Include="src\box2d\dynamics\b2_edge_circle_contact.h" />
-    <ClInclude Include="src\box2d\dynamics\b2_edge_polygon_contact.h" />
-    <ClInclude Include="src\box2d\dynamics\b2_island.h" />
-    <ClInclude Include="src\box2d\dynamics\b2_polygon_circle_contact.h" />
-    <ClInclude Include="src\box2d\dynamics\b2_polygon_contact.h" />
     <ClInclude Include="src\Utils.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="include\assimp\color4.inl" />
-    <None Include="include\assimp\material.inl" />
-    <None Include="include\assimp\matrix3x3.inl" />
-    <None Include="include\assimp\matrix4x4.inl" />
-    <None Include="include\assimp\quaternion.inl" />
-    <None Include="include\assimp\SmoothingGroups.inl" />
-    <None Include="include\assimp\vector2.inl" />
-    <None Include="include\assimp\vector3.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

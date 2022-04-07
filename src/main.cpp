@@ -32,9 +32,7 @@
 #include "Grid.h"
 #include "Utils.h"
 
-#include <fan/graphics/graphics.hpp>
-#include <fan/graphics/gui.hpp>
-#include <fan/math/random.hpp>
+#include <fan/graphics/graphics.h>
 #include <thread>
 
 
@@ -54,43 +52,67 @@ int main()
     //  Grid divisor
     int subdivs = 50;
 
-	fan::window window(Utils::FloorToPerfectSquare(fan::get_resolution()) - 100, "Conway's Game of Life");
-    fan::camera camera(&window);
+	fan::window_t window;
+	window.open(Utils::FloorToPerfectSquare(fan::get_screen_resolution()) - 100, "Conway's Game of Life");
+	fan::opengl::context_t context;
+	context.init();
+  context.bind_to_window(&window);
+  context.set_viewport(0, window.get_size());
+	window.add_resize_callback(&context, [](fan::window_t*, const fan::vec2i& s, void* userptr) {
+		((fan::opengl::context_t*)userptr)->set_viewport(0, s);
+	});
 
-    window.set_max_fps(165);
-    window.set_vsync(false);
+
+  window.set_max_fps(165);
+  context.set_vsync(&window, false);
     
     
-    fan::set_console_visibility(false);
+  fan::set_console_visibility(false);
 
-    Grid grid(&camera, subdivs);
+  Grid grid(&window, &context, subdivs);
 
 	/* Key bindings */
-	window.add_key_callback(fan::mouse_left, fan::key_state::press, [&]() { grid.paintingLive = true; });
-	window.add_key_callback(fan::mouse_left, fan::key_state::release, [&]() { grid.paintingLive = false; });
+	window.add_key_callback(fan::mouse_left, fan::key_state::press, &grid, [](fan::window_t*, uint16_t key, void* userptr) { 
+		((Grid*)userptr)->paintingLive = true;
+	});
+	window.add_key_callback(fan::mouse_left, fan::key_state::release, &grid, [](fan::window_t*, uint16_t key, void* userptr) { 
+		((Grid*)userptr)->paintingLive = false; 
+	});
 
-	window.add_key_callback(fan::mouse_right, fan::key_state::press, [&]() { grid.paintingDead = true; });
-	window.add_key_callback(fan::mouse_right, fan::key_state::release, [&]() { grid.paintingDead = false; });
+	window.add_key_callback(fan::mouse_right, fan::key_state::press, &grid, [](fan::window_t*, uint16_t key, void* userptr) { 
+		((Grid*)userptr)->paintingDead = true; 
+	});
+	window.add_key_callback(fan::mouse_right, fan::key_state::release, &grid, [](fan::window_t*, uint16_t key, void* userptr) { 
+		((Grid*)userptr)->paintingDead = false; 
+	});
 
 	// ESC: Close game
-	window.add_key_callback(fan::key_escape, fan::key_state::press, [&]() { window.close(); });
+	window.add_key_callback(fan::key_escape, fan::key_state::press, nullptr, [](fan::window_t* w, uint16_t key, void* userptr) {
+		w->close();
+	});
 
 	// F: Toggle FPS
-	window.add_key_callback(fan::key_f, fan::key_state::press, [&]() { grid.show_fps = !grid.show_fps; window.set_name("Conway's Game of Life"); });
+	window.add_key_callback(fan::key_f, fan::key_state::press, &grid, [](fan::window_t* w, uint16_t key, void* userptr) { 
+		Grid& grid = *(Grid*)userptr;
+		grid.show_fps = !grid.show_fps; grid.window->set_name("Conway's Game of Life"); 
+	});
 
 	// Space: Toggle simulation
-	window.add_key_callback(fan::key_space, fan::key_state::press, [&]() { grid.toggle_simulation(); });
+	window.add_key_callback(fan::key_space, fan::key_state::press, &grid, [](fan::window_t* w, uint16_t key, void* userptr) { 
+		((Grid*)userptr)->toggle_simulation(); 
+	});
 
 	// Shift+T+ScrollUp: Evolve or forward to next generation depending on if the generation is already recorded or not. 
 	// Shift+T+ScrollDown: Devolve to earlier generation if it exists
-	window.set_keys_callback([&](uint16_t key, fan::key_state state) {
-		if (window.key_press(fan::key_t) && key == fan::mouse_scroll_up) {
+	window.add_keys_callback(&grid, [](fan::window_t*, uint16_t key, fan::key_state, void* userptr) {
+		Grid& grid = *(Grid*)userptr;
+		if (grid.window->key_press(fan::key_t) && key == fan::mouse_scroll_up) {
 			grid.evolve();
 		}
-		else if (window.key_press(fan::key_t) && key == fan::mouse_scroll_down) {
+		else if (grid.window->key_press(fan::key_t) && key == fan::mouse_scroll_down) {
 			grid.devolve();
 		}
 	});
 
-    grid.run();
+  grid.run();
 }
