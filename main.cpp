@@ -26,20 +26,21 @@
 //                                                                                                                                                          //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// #include fan
-#include <iostream>
+#define _INCLUDE_TOKEN(p0, p1) <p0/p1>
+
+#ifndef FAN_INCLUDE_PATH
+#define FAN_INCLUDE_PATH include
+#endif
+#define fan_debug 0
+#include _INCLUDE_TOKEN(FAN_INCLUDE_PATH, fan/types/types.h)
+#define loco_window
+#define loco_context
+
+#define loco_rectangle
+#include _FAN_PATH(graphics/loco.h)
+
 #include <vector>
 #include <limits>
-
-struct Vec2 {
-	float x, y;
-
-	Vec2(float x, float y) : x(x), y(y) {}
-
-	Vec2 operator/(int i) {
-		return { x/i, y/i };
-	}
-};
 
 /// <summary>
 /// Represents a cell as per Conway's Game of Life
@@ -47,9 +48,9 @@ struct Vec2 {
 struct Cell {
 	// Instanced
 	bool is_alive = false;
-	Vec2 position = Vec2(0.0f, 0.0f);
+	fan::vec2 position = fan::vec2(0.0f, 0.0f);
 
-	float distance_to(Vec2 point) {
+	float distance_to(fan::vec2 point) {
 		float dx = point.x - point.x;
 		float dy = point.y - point.y;
 		return sqrt(dx * dx + dy * dy);
@@ -57,7 +58,7 @@ struct Cell {
 
 	// Static
 private:
-	static enum Era {
+	enum Era {
 		Invalid,
 		Past,
 		Present,
@@ -66,7 +67,7 @@ private:
 	
 	static int _gen_curr;
 	static std::vector<std::vector<Cell>> _cache;
-	static Vec2 _cell_size;
+	static inline fan::vec2 _cell_size;
 
 
 	// Relative to current era: Is this generation past, present or future?
@@ -78,11 +79,11 @@ private:
 	}
 
 public:
-	static Vec2 get_cell_size() {
+	static fan::vec2 get_cell_size() {
 		return _cell_size;
 	}
 
-	static void recalculate_cell_size(Vec2 window_size, int divisor) {
+	static void recalculate_cell_size(fan::vec2 window_size, int divisor) {
 		_cell_size = window_size / divisor;
 	}
 
@@ -110,7 +111,7 @@ public:
 	}
 };
 
-float cross_product(Vec2 a, Vec2 b) {
+float cross_product(fan::vec2 a, fan::vec2 b) {
 	return a.x * b.y - a.y * b.x;
 }
 
@@ -120,7 +121,7 @@ float cross_product(Vec2 a, Vec2 b) {
 /// <para>CD</para>
 /// 
 /// </summary>
-bool is_point_inside_square(Vec2 point, Vec2 A, Vec2 B, Vec2 C, Vec2 D) {
+bool is_point_inside_square(fan::vec2 point, fan::vec2 A, fan::vec2 B, fan::vec2 C, fan::vec2 D) {
 	// Calculate the cross products of the vectors formed by the point and each pair of adjacent corners
 	float cross1 = cross_product({ B.x - A.x, B.y - A.y }, { point.x - A.x, point.y - A.y });
 	float cross2 = cross_product({ C.x - B.x, C.y - B.y }, { point.x - B.x, point.y - B.y });
@@ -137,9 +138,9 @@ void set_keybinds() {
 }
 
 void on_mouse_click(std::vector<Cell>& cells) {
-	Vec2 mouse_pos = {231,123};//GetMousePosition();
+	fan::vec2 mouse_pos = {231,123};//GetMousePosition();
 
-	Vec2 size = Cell::get_cell_size();
+	fan::vec2 size = Cell::get_cell_size();
 
 
 	// Determine nearest cell
@@ -163,7 +164,7 @@ void on_mouse_click(std::vector<Cell>& cells) {
 
 void main() {
 	set_keybinds();
-	Vec2 wnd_size = { 1920, 1080 };//GetWindowSize();
+	fan::vec2 wnd_size = { 1920, 1080 };//GetWindowSize();
 
 	Cell::recalculate_cell_size(wnd_size, 16);
 	std::vector<Cell> cells;
