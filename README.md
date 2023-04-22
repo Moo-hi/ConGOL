@@ -1,6 +1,6 @@
 # Conway's Game of Life
 ## Overview
-C++20 adaptation of the famous Conway's Game of Life, using OpenGL for graphics.
+C++20 adaptation of the famous Conway's Game of Life.
 
 ------------
 
@@ -25,9 +25,5 @@ Find more information about the game [here](https://en.wikipedia.org/wiki/Conway
 - Shift+T+MousewheelDown : De-evolve
 - F : Show FPS in window frame
 
-## Known issues
-- Crash if evolution extends outside the top or bottom of window (overlap handling is unimplemented in 0.9)
-- Resizing window breaks the graphics.
-
 ## Credits
-Graphics library for utilizing OpenGL: @reinterpret-pointer-cast
+Graphics library: @6413
