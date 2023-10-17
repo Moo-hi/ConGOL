@@ -86,7 +86,7 @@ tp.keyboard_cb = [this, selected_id](const loco_t::keyboard_data_t& d) -> int {
 };
 
 rename_textbox = tp;
-pile->loco.menu_maker_button.invalidate_selected(instances[stage_t::stage_options].menu_id);
+singleton->loco.menu_maker_button.invalidate_selected(instances[stage_t::stage_options].menu_id);
 //rename_textbox.
 rename_textbox.set_focus();
 
